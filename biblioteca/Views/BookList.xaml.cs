@@ -21,6 +21,7 @@ namespace biblioteca.Views
         public BookList()
         {
             InitializeComponent();
+            DataContext = new ViewModels.BookListViewModel();
         }
     }
 }

@@ -7,7 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Lista książek" HorizontalAlignment="Center" VerticalAlignment="Center"
-            />
+        <ListView ItemsSource="{Binding Books}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
+                    <GridViewColumn Header="PublicationYear" DisplayMemberBinding="{Binding PublicationYear}"/>
+                    <GridViewColumn Header="IsAvailable" DisplayMemberBinding="{Binding IsAvailable}"/>
+                    <GridViewColumn Header="Details" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Header="Details">
+                                    <StackPanel>
+                                        <TextBlock Text="Description: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Description}"/>
+                                        <TextBlock Text="Genre: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Genre}"/>
+                                        <TextBlock Text="ISBN: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Signature}"/>
+                                        <TextBlock Text="Year: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding PublicationYear}"/>
+                                    </StackPanel>
+                                </Expander>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Command="{Binding AddBookCommand}"/>
     </Grid>
 </UserControl>
