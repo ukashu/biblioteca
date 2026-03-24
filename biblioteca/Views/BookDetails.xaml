@@ -21,30 +21,61 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Title" Grid.Row="0" Grid.Column="0"/>
-        <TextBlock Text="{Binding Title}" Grid.Row="0" Grid.Column="1" Margin="5"/>
+        <!-- Title -->
+        <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="TitleText" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBox x:Name="TitleBox" Grid.Row="0" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
-        <Label Content="Author" Grid.Row="1" Grid.Column="0"/>
-        <TextBlock Text="{Binding Author}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <!-- Author -->
+        <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="AuthorText" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
-        <Label Content="Publication Year" Grid.Row="2" Grid.Column="0"/>
-        <TextBlock Text="{Binding PublicationYear}" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <!-- Publication Year -->
+        <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="PublicationYearText" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBox x:Name="PublicationYearBox" Grid.Row="2" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
-        <Label Content="Genre" Grid.Row="3" Grid.Column="0"/>
-        <TextBlock Text="{Binding Genre}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+        <!-- Genre -->
+        <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="GenreText" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
-        <Label Content="Signature" Grid.Row="4" Grid.Column="0"/>
-        <TextBlock Text="{Binding Signature}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+        <!-- Signature -->
+        <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="SignatureText" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
-        <Label Content="Description" Grid.Row="5" Grid.Column="0"/>
-        <TextBlock Text="{Binding Description}"
+        <!-- Description -->
+        <Label Content="Description" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="DescriptionText"
                    Grid.Row="5"
                    Grid.Column="1"
                    Margin="5"
                    TextWrapping="Wrap"/>
+        <TextBox x:Name="DescriptionBox"
+                 Grid.Row="5"
+                 Grid.Column="1"
+                 Margin="5"
+                 Height="100"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 Visibility="Collapsed"/>
 
-        <Label Content="Is Available" Grid.Row="6" Grid.Column="0"/>
-        <TextBlock Text="{Binding IsAvailable}" Grid.Row="6" Grid.Column="1" Margin="5"/>
+        <!-- Is Available -->
+        <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBlock x:Name="IsAvailableText" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <CheckBox x:Name="IsAvailableBox" Grid.Row="6" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
+        <!-- Buttons -->
+        <StackPanel Grid.Row="7"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,15,0,0">
+            <Button x:Name="EditButton" Content="Edit" Width="80" Margin="5" Click="EditButton_Click"/>
+            <Button x:Name="SaveButton" Content="Save" Width="80" Margin="5" Click="SaveButton_Click" Visibility="Collapsed"/>
+            <Button x:Name="CancelButton" Content="Cancel" Width="80" Margin="5" Click="CancelButton_Click" Visibility="Collapsed"/>
+        </StackPanel>
     </Grid>
 </Window>
