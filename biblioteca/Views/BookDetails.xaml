@@ -23,32 +23,33 @@
 
         <!-- Title -->
         <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="TitleText" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock x:Name="TitleText" Text="{Binding Title}" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <TextBox x:Name="TitleBox" Grid.Row="0" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
         <!-- Author -->
         <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="AuthorText" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock x:Name="AuthorText" Text="{Binding Author}" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
         <!-- Publication Year -->
         <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="PublicationYearText" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock x:Name="PublicationYearText" Text="{Binding PublicationYear}" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <TextBox x:Name="PublicationYearBox" Grid.Row="2" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
         <!-- Genre -->
         <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="GenreText" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock x:Name="GenreText" Text="{Binding Genre}" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
         <!-- Signature -->
         <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="SignatureText" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock x:Name="SignatureText" Text="{Binding Signature}" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
         <!-- Description -->
         <Label Content="Description" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
         <TextBlock x:Name="DescriptionText"
+                   Text="{Binding Description}"
                    Grid.Row="5"
                    Grid.Column="1"
                    Margin="5"
@@ -64,7 +65,7 @@
 
         <!-- Is Available -->
         <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="IsAvailableText" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock x:Name="IsAvailableText" Text="{Binding IsAvailable}" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <CheckBox x:Name="IsAvailableBox" Grid.Row="6" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
         <!-- Buttons -->

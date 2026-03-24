@@ -18,7 +18,6 @@ namespace biblioteca.Views
     /// </summary>
     public partial class BookDetails : Window
     {
-        private Boolean IsEditing = false;
         private Book _originalBook;
         private Book _editedBook;
         public BookDetails(Models.Book book)
@@ -27,19 +26,7 @@ namespace biblioteca.Views
             DataContext = book;
             _originalBook = book;
 
-            LoadViewValues();
             EnterViewMode();
-        }
-
-        private void LoadViewValues()
-        {
-            TitleText.Text = _originalBook.Title;
-            AuthorText.Text = _originalBook.Author;
-            PublicationYearText.Text = _originalBook.PublicationYear.ToString();
-            GenreText.Text = _originalBook.Genre;
-            SignatureText.Text = _originalBook.Signature;
-            DescriptionText.Text = _originalBook.Description;
-            IsAvailableText.Text = _originalBook.IsAvailable ? "Yes" : "No";
         }
 
         private void LoadEditValues()
@@ -128,14 +115,12 @@ namespace biblioteca.Views
             _editedBook.PublicationYear = year;
 
             _originalBook.CopyFrom(_editedBook);
-            LoadViewValues();
             EnterViewMode();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _editedBook = _originalBook.Clone();
-            LoadViewValues();
             EnterViewMode();
         }
     }
