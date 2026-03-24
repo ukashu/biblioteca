@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biblioteca.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -28,8 +29,11 @@ namespace biblioteca.Views
         {
             if (sender is ListView booksList && booksList.SelectedItem is Models.Book selectedBook)
             {
-                var detailsWindow = new BookDetails(selectedBook);
-                detailsWindow.ShowDialog();
+                if (DataContext is BookListViewModel viewModel)
+                {
+                    var detailsWindow = new BookDetails(selectedBook, viewModel.DeleteBook);
+                    detailsWindow.ShowDialog();
+                }
             }
         }
     }

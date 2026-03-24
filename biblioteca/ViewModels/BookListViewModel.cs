@@ -42,5 +42,13 @@ namespace biblioteca.ViewModels
                 Books.Add(addBookWindow.CreatedBook);
             }
         }
+
+        public void DeleteBook(Book book)
+        {
+            if (book != null)
+            {
+                Books.Remove(book);
+            }
+        }
     }
 }

@@ -20,11 +20,13 @@ namespace biblioteca.Views
     {
         private Book _originalBook;
         private Book _editedBook;
-        public BookDetails(Models.Book book)
+        private readonly Action<Book> _deleteBookAction;
+        public BookDetails(Models.Book book, Action<Book> deleteBookAction)
         {
             InitializeComponent();
             DataContext = book;
             _originalBook = book;
+            _deleteBookAction = deleteBookAction;
 
             EnterViewMode();
         }
@@ -122,6 +124,21 @@ namespace biblioteca.Views
         {
             _editedBook = _originalBook.Clone();
             EnterViewMode();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(
+                $"Usunąć książkę \"{_originalBook.Title}\"?",
+                "Potwierdź",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _deleteBookAction?.Invoke(_originalBook);
+                Close();
+            }
         }
     }
 }
