@@ -23,5 +23,14 @@ namespace biblioteca.Views
             InitializeComponent();
             DataContext = new ViewModels.BookListViewModel();
         }
+
+        private void BooksList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListView booksList && booksList.SelectedItem is Models.Book selectedBook)
+            {
+                var detailsWindow = new BookDetails(selectedBook);
+                detailsWindow.ShowDialog();
+            }
+        }
     }
 }
