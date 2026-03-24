@@ -25,30 +25,30 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Tytuł" Grid.Column="0"/>
-        <TextBox x:Name="TitleBox" Grid.Column="1" Margin="80,0,0,5"/>
+        <TextBox x:Name="TitleBox" Grid.Column="1" Margin="0,0,0,10"/>
 
         <TextBlock Text="Autor" Grid.Row="1"/>
-        <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="80,0,0,5"/>
+        <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10"/>
 
         <TextBlock Text="Rok" Grid.Row="2"/>
-        <TextBox x:Name="YearBox" Grid.Row="2" Grid.Column="1" Margin="80,0,0,5"/>
+        <TextBox x:Name="YearBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10"/>
         
         <TextBlock Text="Gatunek" Grid.Row="3"/>
-        <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="80,0,0,5"/>
+        <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10"/>
         
         <TextBlock Text="Sygnatura" Grid.Row="4"/>
-        <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="80,0,0,5"/>
+        <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10"/>
         
         <TextBlock Text="Opis" Grid.Row="5"/>
-        <TextBox x:Name="DescriptionBox" Grid.Row="5" Grid.Column="1" Margin="80,0,0,5"/>
+        <TextBox x:Name="DescriptionBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10" Height="80"/>
         
         <TextBlock Text="Available" Grid.Row="6"/>
-        <CheckBox x:Name="AvailableBox" Grid.Row="6" Grid.Column="1" Margin="80,0,0,5"/>
+        <CheckBox x:Name="AvailableBox" Grid.Row="6" Grid.Column="1" Margin="0,0,0,10"/>
 
         <Button Content="Dodaj książkę"
                 Grid.Row="7"
                 Grid.ColumnSpan="2"
-                Margin="0,10,0,10"
+                Margin="10,10,10,10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="AddBook_Click"/>

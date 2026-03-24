@@ -28,7 +28,7 @@ namespace biblioteca.Views
         {
             if (!int.TryParse(YearBox.Text, out int publicationYear))
             {
-                MessageBox.Show("Please enter a valid publication year.");
+                MessageBox.Show("Niewłaściwy rok publikacji.");
                 return;
             }
 
