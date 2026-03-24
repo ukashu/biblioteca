@@ -35,6 +35,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Command="{Binding AddBookCommand}"/>
+        <Button Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Command="{Binding AddBookWithDialogCommand}"/>
     </Grid>
 </UserControl>

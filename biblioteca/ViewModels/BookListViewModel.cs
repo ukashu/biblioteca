@@ -10,13 +10,14 @@ using System.Windows.Controls;
 
 namespace biblioteca.ViewModels
 {
-    internal class BookListViewModel
+    public class BookListViewModel
     {
         public string Title => "Books";
 
         public ObservableCollection<Book> Books { get; set; }
 
         public RelayCommand AddBookCommand => new RelayCommand(execute => AddBook());
+        public RelayCommand AddBookWithDialogCommand => new RelayCommand(execute => AddBookWithDialog());
 
         public BookListViewModel()
         {
@@ -31,6 +32,15 @@ namespace biblioteca.ViewModels
         private void AddBook()
         {
             Books.Add(new Book("New Book", "Author Name", 2024, "Genre", "ISBN123", "Description of the new book."));
+        }
+
+        private void AddBookWithDialog()
+        {
+            var addBookWindow = new Views.AddBook();
+            if (addBookWindow.ShowDialog() == true)
+            {
+                Books.Add(addBookWindow.CreatedBook);
+            }
         }
     }
 }

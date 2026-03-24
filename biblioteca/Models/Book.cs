@@ -14,6 +14,8 @@ namespace biblioteca.Models
         public string Description { get; set; }
         public bool IsAvailable { get; set; } = true;
 
+        public Book() { }
+
         public Book(string title, string author, int publicationYear, string genre, string signature, string description)
         {
             Title = title;
