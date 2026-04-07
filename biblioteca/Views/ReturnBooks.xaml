@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Lista czytelników" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <TextBlock Text="Zwróć książki" HorizontalAlignment="Center" VerticalAlignment="Center"
             />
     </Grid>
 </UserControl>
