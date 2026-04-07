@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace biblioteca.Views
 {
     /// <summary>
-    /// Interaction logic for LoanHistory.xaml
+    /// Interaction logic for ReturnBooks.xaml
     /// </summary>
-    public partial class LoanHistory : UserControl
+    public partial class ReturnBooks : UserControl
     {
-        public LoanHistory()
+        public ReturnBooks()
         {
             InitializeComponent();
         }

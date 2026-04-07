@@ -15,7 +15,9 @@ namespace biblioteca.ViewModels
             Tabs = new ObservableCollection<object>
             {
                 new BookListViewModel(),
-                new UserListViewModel()
+                new UserListViewModel(),
+                new ReturnBooksViewModel(),
+                new BorrowingHistoryViewModel()
             };
         }
     }
