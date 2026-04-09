@@ -1,6 +1,6 @@
 ## TODOs na zjazd 6
 ### Ola (branch zjazd6_ola)
-- [ ] zaimplementować zakładkę "Users" z listą użytkowników i z działającym w pamięci CRUDem
+- [x] zaimplementować zakładkę "Users" z listą użytkowników i z działającym w pamięci CRUDem
 	- możesz wzorować się w pełni na implementacji istniejącej zakładki "Books"
 	- CRUD działający tak samo jak w "Books" z podobnym UI
 ### Wiktoria (branch zjazd6_wiktoria)
