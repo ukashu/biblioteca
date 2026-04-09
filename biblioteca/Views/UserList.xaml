@@ -7,7 +7,37 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Lista czytelników" HorizontalAlignment="Center" VerticalAlignment="Center"
-            />
+        <ListView ItemsSource="{Binding Users}" MouseDoubleClick="UsersList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
+                    <GridViewColumn Header="Active" DisplayMemberBinding="{Binding IsActive}" Width="60"/>
+                    <GridViewColumn Header="Details" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Header="Details">
+                                    <StackPanel>
+                                        <TextBlock Text="Phone: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding PhoneNumber}"/>
+                                        <TextBlock Text="Card: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding CardNumber}"/>
+                                        <TextBlock Text="Notes: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Notes}" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Expander>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Name="add_user_button"
+                Content="Add User"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10"
+                Command="{Binding AddUserWithDialogCommand}"/>
     </Grid>
 </UserControl>
