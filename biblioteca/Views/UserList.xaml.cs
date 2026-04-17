@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using biblioteca.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,6 +19,19 @@ namespace biblioteca.Views
         public UserList()
         {
             InitializeComponent();
+            DataContext = new UserListViewModel();
+        }
+
+        private void UsersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListView usersList && usersList.SelectedItem is Models.User selectedUser)
+            {
+                if (DataContext is UserListViewModel viewModel)
+                {
+                    var detailsWindow = new UserDetails(selectedUser, viewModel.DeleteUser);
+                    detailsWindow.ShowDialog();
+                }
+            }
         }
     }
 }
