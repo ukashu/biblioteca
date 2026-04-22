@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
 using biblioteca.Models;
 
 namespace biblioteca.ViewModels
@@ -12,30 +13,23 @@ namespace biblioteca.ViewModels
 
         public BorrowingHistoryViewModel()
         {
-            Loans = new ObservableCollection<Loan>
+            using var db = new Data.LibraryContext();
+
+            var loansFromDb = db.Loans.ToList();
+
+            if (!db.Loans.Any())
             {
-                new Loan
-                {
-                    BookTitle = "Władca Pierścieni",
-                    UserName = "Jan Kowalski",
-                    BorrowDate = DateTime.Now.AddDays(-10),
-                    ReturnDate = DateTime.Now.AddDays(-2)
-                },
-                new Loan
-                {
-                    BookTitle = "Harry Potter",
-                    UserName = "Anna Nowak",
-                    BorrowDate = DateTime.Now.AddDays(-5),
-                    ReturnDate = null
-                },
-                new Loan
+                db.Loans.Add(new Loan
                 {
                     BookTitle = "1984",
-                    UserName = "Piotr Zieliński",
-                    BorrowDate = DateTime.Now.AddDays(-3),
-                    ReturnDate = null
-                }
-            };
+                    UserName = "Test User",
+                    BorrowDate = DateTime.Now
+                });
+
+                db.SaveChanges();
+            }
+
+            Loans = new ObservableCollection<Loan>(loansFromDb);
         }
     }
 }
