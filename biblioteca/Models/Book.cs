@@ -16,6 +16,8 @@ namespace biblioteca.Models
         private string _description;
         private bool _isAvailable = true;
 
+        public int Id { get; set; }
+
         public string Title
         {
             get => _title;

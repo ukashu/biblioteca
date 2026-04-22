@@ -1,4 +1,5 @@
-﻿using biblioteca.Models;
+﻿using biblioteca.Data;
+using biblioteca.Models;
 using biblioteca.MVVM;
 using System;
 using System.Collections.Generic;
@@ -21,17 +22,27 @@ namespace biblioteca.ViewModels
 
         public BookListViewModel()
         {
-            Books = new ObservableCollection<Book>
+            using var db = new Data.LibraryContext();
+
+            var booksFromDb = db.Books.ToList();
+
+            if (!db.Books.Any())
             {
-                new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, "Novel", "GAT123", "A novel set in the Roaring Twenties."),
-                new Book("To Kill a Mockingbird", "Harper Lee", 1960, "Novel", "LEE456", "A novel about racial injustice in the Deep South."),
-                new Book("1984", "George Orwell", 1949, "Dystopian", "ORW789", "A dystopian novel about totalitarianism."),
-            };
+                db.Books.AddRange(
+                    new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, "Novel", "GAT123", "A novel set in the Roaring Twenties."),
+                    new Book("To Kill a Mockingbird", "Harper Lee", 1960, "Novel", "LEE456", "A novel about racial injustice in the Deep South."),
+                    new Book("1984", "George Orwell", 1949, "Dystopian", "ORW789", "A dystopian novel about totalitarianism.")
+                );
+
+                db.SaveChanges();
+            }
+
+            Books = new ObservableCollection<Book>(booksFromDb);
         }
 
         private void AddBook()
         {
-            Books.Add(new Book("New Book", "Author Name", 2024, "Genre", "ISBN123", "Description of the new book."));
+            var newBook = new Book("New Book", "Author Name", 2024, "Genre", "ISBN123", "Description of the new book.");
         }
 
         private void AddBookWithDialog()
@@ -39,16 +50,26 @@ namespace biblioteca.ViewModels
             var addBookWindow = new Views.AddBook();
             if (addBookWindow.ShowDialog() == true)
             {
-                Books.Add(addBookWindow.CreatedBook);
+                var newBook = addBookWindow.CreatedBook;
+
+                using var db = new LibraryContext();
+                db.Books.Add(newBook);
+                db.SaveChanges();
+
+                Books.Add(newBook);
             }
         }
 
         public void DeleteBook(Book book)
         {
-            if (book != null)
-            {
-                Books.Remove(book);
-            }
+            if (book == null) return;
+
+            using var db = new LibraryContext();
+
+            db.Books.Remove(book);
+            db.SaveChanges();
+
+            Books.Remove(book);
         }
     }
 }
