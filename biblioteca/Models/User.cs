@@ -13,6 +13,7 @@ namespace biblioteca.Models
         private string _notes = string.Empty;
         private bool _isActive = true;
 
+        public int Id { get; set; }
         public string FirstName
         {
             get => _firstName;
