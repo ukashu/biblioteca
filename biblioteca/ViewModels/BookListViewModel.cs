@@ -71,5 +71,17 @@ namespace biblioteca.ViewModels
 
             Books.Remove(book);
         }
+
+        public void UpdateBook(Book updatedBook)
+        {
+            using var db = new LibraryContext();
+
+            var bookInDb = db.Books.Find(updatedBook.Id);
+            if (bookInDb == null) return;
+
+            bookInDb.CopyFrom(updatedBook);
+
+            db.SaveChanges();
+        }
     }
 }

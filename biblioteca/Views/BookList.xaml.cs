@@ -31,7 +31,7 @@ namespace biblioteca.Views
             {
                 if (DataContext is BookListViewModel viewModel)
                 {
-                    var detailsWindow = new BookDetails(selectedBook, viewModel.DeleteBook);
+                    var detailsWindow = new BookDetails(selectedBook, viewModel.DeleteBook, viewModel.UpdateBook);
                     detailsWindow.ShowDialog();
                 }
             }

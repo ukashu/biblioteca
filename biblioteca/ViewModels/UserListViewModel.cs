@@ -59,5 +59,17 @@ namespace biblioteca.ViewModels
                 Users.Remove(user);
             }
         }
+
+        public void UpdateUser(User updatedUser)
+        {
+            using var db = new Data.LibraryContext();
+
+            var userInDb = db.Users.Find(updatedUser.Id);
+            if (userInDb == null) return;
+
+            userInDb.CopyFrom(updatedUser);
+
+            db.SaveChanges();
+        }
     }
 }

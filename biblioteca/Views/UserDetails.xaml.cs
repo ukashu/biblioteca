@@ -12,13 +12,15 @@ namespace biblioteca.Views
         private User _originalUser;
         private User _editedUser = new User();
         private readonly Action<User> _deleteUserAction;
+        private readonly Action<User> _updateUserAction;
 
-        public UserDetails(User user, Action<User> deleteUserAction)
+        public UserDetails(User user, Action<User> deleteUserAction, Action<User> updateUserAction)
         {
             InitializeComponent();
             DataContext = user;
             _originalUser = user;
             _deleteUserAction = deleteUserAction;
+            _updateUserAction = updateUserAction;
 
             EnterViewMode();
         }
@@ -109,6 +111,9 @@ namespace biblioteca.Views
             }
 
             _originalUser.CopyFrom(_editedUser);
+
+            _updateUserAction?.Invoke(_originalUser);
+
             EnterViewMode();
         }
 

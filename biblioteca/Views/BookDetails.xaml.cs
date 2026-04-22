@@ -21,12 +21,14 @@ namespace biblioteca.Views
         private Book _originalBook;
         private Book _editedBook;
         private readonly Action<Book> _deleteBookAction;
-        public BookDetails(Models.Book book, Action<Book> deleteBookAction)
+        private readonly Action<Book> _updateBookAction;
+        public BookDetails(Models.Book book, Action<Book> deleteBookAction, Action<Book> updateBookAction)
         {
             InitializeComponent();
             DataContext = book;
             _originalBook = book;
             _deleteBookAction = deleteBookAction;
+            _updateBookAction = updateBookAction;
 
             EnterViewMode();
         }
@@ -117,6 +119,9 @@ namespace biblioteca.Views
             _editedBook.PublicationYear = year;
 
             _originalBook.CopyFrom(_editedBook);
+
+            _updateBookAction?.Invoke(_originalBook);
+
             EnterViewMode();
         }
 

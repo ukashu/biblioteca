@@ -28,7 +28,7 @@ namespace biblioteca.Views
             {
                 if (DataContext is UserListViewModel viewModel)
                 {
-                    var detailsWindow = new UserDetails(selectedUser, viewModel.DeleteUser);
+                    var detailsWindow = new UserDetails(selectedUser, viewModel.DeleteUser, viewModel.UpdateUser);
                     detailsWindow.ShowDialog();
                 }
             }
