@@ -15,7 +15,7 @@
 - [x] dodać placeholdery do tasków
 - [ ] połączyć funkcjonalność zwracania książek z modelami Books, Users i Loans
 
-## TODOs na zjazd 7
+## TODOs na zjazd 8
 ### Backlog
 - przenieść logikę z code behind do view modeli (w userlist i booklist)
 - dodać walidację i error handling gdzie potrzebne
