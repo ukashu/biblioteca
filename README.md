@@ -12,7 +12,8 @@
 	- ma to być formularz z inputem tekstowym "ISBN" lub "Sygnatura" i przyciskiem "Dodaj", po kliknięciu przycisku "Dodaj" ISBN powinien pojawić się na liście w tym samym oknie
 	- na dole okna przycisk "Zwróć", po kliknięciu ma wyświetlić MessageBox z tekstem "Zwrócono książki"
 ### Łukasz
-- [ ] połączyć funkcjonalność zwracania książek z modelami Books i Users
+- [x] dodać placeholdery do tasków
+- [ ] połączyć funkcjonalność zwracania książek z modelami Books, Users i Loans
 
 ## TODOs na zjazd 7
 ### Backlog
@@ -21,3 +22,15 @@
 - dodać bazę danych
 - dodać funkcjonalność wypożyczania książek (po kliknięciu na usera okno do wpisywania ISBN)
 - dodać możliwość edycji wielu książek i userów na raz (kilka edytowanych książek/userów powinno otwierać się jako zakładki w jednym oknie details)
+
+### Łukasz
+- [x] dodać bazę danych SQLite
+### Ola
+- [ ] dodać funkcjonalność wypożyczania książek z wykorzystaniem bazy danych
+	- dodać przycisk dla każdego Usera w zakładce Users, po naciśnięciu którego wyskoczy okno do wypożyczania książek przez tego użytkownika
+	- okno wypożyczania zrobione podobnie jak zakładka Return Books, poprzez formularz dodajemy ISBN do listy i klikamy przycisk "Wypożycz" żeby wypożyczyć wiele książek na raz dla wybranego usera
+	- po kliknięciu przycisku "Wypożycz" wyświetlić Dialog z komunikatem "Success" lub "Failure"
+### Wiktoria
+- [ ] połączyć funkcjonalność zwracania książek z bazą danych
+### Natalia
+- [ ] dodać walidację i error handling gdzie potrzebne
