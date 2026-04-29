@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
 using biblioteca.Models;
 
 namespace biblioteca.ViewModels
@@ -15,8 +14,6 @@ namespace biblioteca.ViewModels
         {
             using var db = new Data.LibraryContext();
 
-            var loansFromDb = db.Loans.ToList();
-
             if (!db.Loans.Any())
             {
                 db.Loans.Add(new Loan
@@ -29,6 +26,7 @@ namespace biblioteca.ViewModels
                 db.SaveChanges();
             }
 
+            var loansFromDb = db.Loans.ToList();
             Loans = new ObservableCollection<Loan>(loansFromDb);
         }
     }
