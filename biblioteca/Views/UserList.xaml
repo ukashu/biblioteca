@@ -14,6 +14,16 @@
                     <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}"/>
                     <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
                     <GridViewColumn Header="Active" DisplayMemberBinding="{Binding IsActive}" Width="60"/>
+                    <GridViewColumn Header="Borrow" Width="90">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Borrow"
+                                        Padding="8,2"
+                                        Command="{Binding DataContext.BorrowBooksForUserCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Details" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
