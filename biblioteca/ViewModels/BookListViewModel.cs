@@ -24,8 +24,6 @@ namespace biblioteca.ViewModels
         {
             using var db = new Data.LibraryContext();
 
-            var booksFromDb = db.Books.ToList();
-
             if (!db.Books.Any())
             {
                 db.Books.AddRange(
@@ -37,6 +35,7 @@ namespace biblioteca.ViewModels
                 db.SaveChanges();
             }
 
+            var booksFromDb = db.Books.ToList();
             Books = new ObservableCollection<Book>(booksFromDb);
         }
 

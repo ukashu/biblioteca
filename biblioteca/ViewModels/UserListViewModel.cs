@@ -1,6 +1,7 @@
 ﻿using biblioteca.Models;
 using biblioteca.MVVM;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace biblioteca.ViewModels
 {
@@ -11,12 +12,14 @@ namespace biblioteca.ViewModels
         public ObservableCollection<User> Users { get; set; }
 
         public RelayCommand AddUserWithDialogCommand => new RelayCommand(execute => AddUserWithDialog());
+        public RelayCommand BorrowBooksForUserCommand => new RelayCommand(
+            execute => OpenBorrowBooksWindow(execute as User),
+            canExecute => canExecute is User
+        );
 
         public UserListViewModel()
         {
             using var db = new Data.LibraryContext();
-
-            var usersFromDb = db.Users.ToList();
 
             if (!db.Users.Any())
             {
@@ -29,6 +32,7 @@ namespace biblioteca.ViewModels
                 db.SaveChanges();
             }
 
+            var usersFromDb = db.Users.ToList();
             Users = new ObservableCollection<User>(usersFromDb);
         }
 
@@ -70,6 +74,14 @@ namespace biblioteca.ViewModels
             userInDb.CopyFrom(updatedUser);
 
             db.SaveChanges();
+        }
+
+        private void OpenBorrowBooksWindow(User? user)
+        {
+            if (user == null) return;
+
+            var borrowWindow = new Views.BorrowBooks(user);
+            borrowWindow.ShowDialog();
         }
     }
 }
