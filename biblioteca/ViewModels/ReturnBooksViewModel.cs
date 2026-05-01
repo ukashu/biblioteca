@@ -1,58 +1,84 @@
-﻿using biblioteca.MVVM;
+﻿using biblioteca.Data;
+using biblioteca.Models;
+using biblioteca.MVVM;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 
 namespace biblioteca.ViewModels
 {
-    public class ReturnBooksViewModel : INotifyPropertyChanged
+public class ReturnBooksViewModel : INotifyPropertyChanged
+{
+private readonly LibraryContext _context;
+
+    public string Title => "Return Books";
+
+    private ObservableCollection<Loan> _loans;
+    public ObservableCollection<Loan> Loans
     {
-        private string _inputValue;
-
-        public string Title => "Return Books";
-
-        public string InputValue
+        get => _loans;
+        set
         {
-            get => _inputValue;
-            set
-            {
-                _inputValue = value;
-                OnPropertyChanged(nameof(InputValue));
-            }
-        }
-
-        public ObservableCollection<string> ReturnedBooks { get; set; }
-
-        public RelayCommand AddBookCommand => new RelayCommand(
-            execute => AddBook(),
-            canExecute => !string.IsNullOrWhiteSpace(InputValue)
-        );
-
-        public RelayCommand ReturnBooksCommand => new RelayCommand(
-            execute => ReturnBooks()
-        );
-
-        public ReturnBooksViewModel()
-        {
-            ReturnedBooks = new ObservableCollection<string>();
-        }
-
-        private void AddBook()
-        {
-            ReturnedBooks.Add(InputValue);
-            InputValue = string.Empty;
-        }
-
-        private void ReturnBooks()
-        {
-            MessageBox.Show("Zwrócono książki");
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _loans = value;
+            OnPropertyChanged(nameof(Loans));
         }
     }
+
+    private Loan _selectedLoan;
+    public Loan SelectedLoan
+    {
+        get => _selectedLoan;
+        set
+        {
+            _selectedLoan = value;
+            OnPropertyChanged(nameof(SelectedLoan));
+        }
+    }
+
+    public RelayCommand ReturnBookCommand { get; }
+
+    public ReturnBooksViewModel()
+    {
+        _context = new LibraryContext();
+
+        ReturnBookCommand = new RelayCommand(
+            execute => ReturnBook(),
+            canExecute => SelectedLoan != null && SelectedLoan.ReturnDate == null
+        );
+
+        LoadLoans();
+    }
+
+    public void LoadLoans()
+    {
+        var loans = _context.Loans
+            .Where(l => l.ReturnDate == null)
+            .ToList();
+
+        Loans = new ObservableCollection<Loan>(loans);
+    }
+
+    private void ReturnBook()
+    {
+        if (SelectedLoan == null) return;
+
+        SelectedLoan.ReturnDate = DateTime.Now;
+
+        _context.SaveChanges();
+
+        MessageBox.Show("Książka została zwrócona!");
+
+        LoadLoans(); 
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged(string name)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+}
+
 }
