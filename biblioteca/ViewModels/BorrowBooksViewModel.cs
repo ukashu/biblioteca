@@ -1,5 +1,6 @@
 using biblioteca.Models;
 using biblioteca.MVVM;
+using biblioteca.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -164,6 +165,8 @@ namespace biblioteca.ViewModels
 
                 db.SaveChanges();
                 tx.Commit();
+
+                EventBus.NotifyNewLoan();
 
                 MessageBox.Show("Success");
                 BooksToBorrow.Clear();
