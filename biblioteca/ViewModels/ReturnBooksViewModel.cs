@@ -69,6 +69,12 @@ private readonly LibraryContext _context;
 
         SelectedLoan.ReturnDate = DateTime.Now;
 
+        var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.BookTitle);
+        if (book != null)
+        {
+            book.IsAvailable = true;
+        }
+
         _context.SaveChanges();
 
         MessageBox.Show("Książka została zwrócona!");
