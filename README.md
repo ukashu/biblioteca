@@ -25,12 +25,13 @@
 
 ### Łukasz
 - [x] dodać bazę danych SQLite
+- [ ] naprawianie commitów
 ### Ola
 - [ ] dodać funkcjonalność wypożyczania książek z wykorzystaniem bazy danych
 	- dodać przycisk dla każdego Usera w zakładce Users, po naciśnięciu którego wyskoczy okno do wypożyczania książek przez tego użytkownika
 	- okno wypożyczania zrobione podobnie jak zakładka Return Books, poprzez formularz dodajemy ISBN do listy i klikamy przycisk "Wypożycz" żeby wypożyczyć wiele książek na raz dla wybranego usera
 	- po kliknięciu przycisku "Wypożycz" wyświetlić Dialog z komunikatem "Success" lub "Failure"
 ### Wiktoria
-- [ ] połączyć funkcjonalność zwracania książek z bazą danych
+- [x] połączyć funkcjonalność zwracania książek z bazą danych
 ### Natalia
-- [ ] dodać walidację i error handling gdzie potrzebne
+- [ ] dodać w zakładce "Return Books" filtrowanie po nazwie wypożyczającego
