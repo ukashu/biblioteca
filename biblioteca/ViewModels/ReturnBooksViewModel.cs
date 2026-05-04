@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using biblioteca.Services;
 
 namespace biblioteca.ViewModels
 {
@@ -43,6 +44,8 @@ private readonly LibraryContext _context;
     {
         _context = new LibraryContext();
 
+        EventBus.NewLoan += OnNewLoan;
+
         ReturnBookCommand = new RelayCommand(
             execute => ReturnBook(),
             canExecute => SelectedLoan != null && SelectedLoan.ReturnDate == null
@@ -79,6 +82,11 @@ private readonly LibraryContext _context;
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+
+    private void OnNewLoan()
+        {
+            LoadLoans();
+        }
 }
 
 }
