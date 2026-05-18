@@ -52,7 +52,7 @@
 ### Ola
 - [ ] responsywność UI
 	- zidentyfikować elementy, które nie skalują się dobrze i poprawić ich zachowanie przy zmianie rozmiaru okna
-	- np. po rozwinięciu kolumny Details w User i Book List, trzeba ją ręcznie rozszerzyć, można zmienić tak, aby automatycznie się rozszerzała albo żeby zawsze wypełniała przestrzeń do prawej krawędzi okna
+	- np. po rozwinięciu kolumny Details w User i Book List, trzeba ją ręcznie rozszerzyć, można zmienić tak, aby automatycznie się rozszerzała albo żeby zawsze wypełniała przestrzeń do prawej krawędzi okna; Można też zmienić layout tak, żeby szczegóły nie były jedną z kolumn a otwierały się zawsze po prawej stronie okna po jednokrotnym kliknięciu na książkę z listy
 ### Wiktoria
 - [ ] filtrowanie po wypożyczającym i ISBN w zakładce "Return Books"
 	- dodać input tekstowy do wpisywania nazwy wypożyczającego i ISBN, po wpisaniu których będzie filtrować listę książek do zwrotu
