@@ -18,6 +18,9 @@
         <DataTemplate DataType="{x:Type viewModels:BorrowingHistoryViewModel}">
             <views:BorrowingHistory/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ScanBooksViewModel}">
+            <views:ScanBooks/>
+        </DataTemplate>
          
     </Application.Resources>
 </Application>

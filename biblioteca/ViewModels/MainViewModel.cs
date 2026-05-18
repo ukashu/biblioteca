@@ -17,7 +17,8 @@ namespace biblioteca.ViewModels
                 new BookListViewModel(),
                 new UserListViewModel(),
                 new ReturnBooksViewModel(),
-                new BorrowingHistoryViewModel()
+                new BorrowingHistoryViewModel(),
+                new ScanBooksViewModel()
             };
         }
     }
