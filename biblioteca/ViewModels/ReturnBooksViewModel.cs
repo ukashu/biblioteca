@@ -14,6 +14,30 @@ public class ReturnBooksViewModel : INotifyPropertyChanged
 {
 private readonly LibraryContext _context;
 
+private string _userFilter;
+public string UserFilter
+{
+    get => _userFilter;
+    set
+    {
+        _userFilter = value;
+        OnPropertyChanged(nameof(UserFilter));
+        LoadLoans();
+    }
+}
+
+private string _isbnFilter;
+public string IsbnFilter
+{
+    get => _isbnFilter;
+    set
+    {
+        _isbnFilter = value;
+        OnPropertyChanged(nameof(IsbnFilter));
+        LoadLoans();
+    }
+}
+
     public string Title => "Return Books";
 
     private ObservableCollection<Loan> _loans;
@@ -54,14 +78,39 @@ private readonly LibraryContext _context;
         LoadLoans();
     }
 
-    public void LoadLoans()
-    {
-        var loans = _context.Loans
-            .Where(l => l.ReturnDate == null)
-            .ToList();
+ public void LoadLoans()
+{
+    var loans = _context.Loans
+        .Where(l => l.ReturnDate == null)
+        .ToList();
 
-        Loans = new ObservableCollection<Loan>(loans);
+    // filtrowanie po użytkowniku
+    if (!string.IsNullOrWhiteSpace(UserFilter))
+    {
+        loans = loans
+            .Where(l => l.UserName != null &&
+                        l.UserName.ToLower().Contains(UserFilter.ToLower()))
+            .ToList();
     }
+
+    // filtrowanie po ISBN (Signature)
+    if (!string.IsNullOrWhiteSpace(IsbnFilter))
+    {
+        loans = loans
+            .Where(l =>
+            {
+                var book = _context.Books
+                    .FirstOrDefault(b => b.Title == l.BookTitle);
+
+                return book != null &&
+                       book.Signature != null &&
+                       book.Signature.ToLower().Contains(IsbnFilter.ToLower());
+            })
+            .ToList();
+    }
+
+    Loans = new ObservableCollection<Loan>(loans);
+}
 
     private void ReturnBook()
     {

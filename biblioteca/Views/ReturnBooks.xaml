@@ -4,9 +4,8 @@
 
     <Grid Margin="20">
 
-        <!-- WSZYSTKO musi być w środku Grid -->
-        
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -17,22 +16,59 @@
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
-        <ListBox Grid.Row="1"
+ <!-- FILTRY -->
+<StackPanel Grid.Row="1"
+            Orientation="Horizontal"
+            Margin="0,0,0,15">
+
+    <!-- FILTR UŻYTKOWNIKA -->
+    <StackPanel Margin="0,0,15,0">
+
+        <TextBlock Text="Wypożyczający"
+                   Margin="0,0,0,5"/>
+
+        <TextBox Width="200"
+                 Height="30"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding UserFilter, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+
+    <!-- FILTR ISBN -->
+    <StackPanel>
+
+        <TextBlock Text="ISBN"
+                   Margin="0,0,0,5"/>
+
+        <TextBox Width="200"
+                 Height="30"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding IsbnFilter, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+
+</StackPanel>
+
+        <!-- LISTA -->
+        <ListBox Grid.Row="2"
                  ItemsSource="{Binding Loans}"
                  SelectedItem="{Binding SelectedLoan}">
-            
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding BookTitle}" FontWeight="Bold"/>
+                    <StackPanel Margin="0,0,0,10">
+
+                        <TextBlock Text="{Binding BookTitle}"
+                                   FontWeight="Bold"/>
+
                         <TextBlock Text="{Binding UserName}"/>
+
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
         </ListBox>
 
-        <Button Grid.Row="2"
+        <!-- BUTTON -->
+        <Button Grid.Row="3"
                 Content="Zwróć książkę"
                 Command="{Binding ReturnBookCommand}"
                 Margin="0,20,0,0"
