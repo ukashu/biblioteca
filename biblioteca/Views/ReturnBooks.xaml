@@ -17,20 +17,23 @@
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
-        <ListBox Grid.Row="1"
-                 ItemsSource="{Binding Loans}"
-                 SelectedItem="{Binding SelectedLoan}">
-            
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding BookTitle}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding UserName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto">
+            <ListBox ItemsSource="{Binding Loans}"
+                     SelectedItem="{Binding SelectedLoan}">
 
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding BookTitle}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding UserName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+        </ScrollViewer>
 
         <Button Grid.Row="2"
                 Content="Zwróć książkę"

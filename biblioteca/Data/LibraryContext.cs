@@ -1,8 +1,5 @@
 ﻿using biblioteca.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace biblioteca.Data
 {
@@ -16,7 +13,8 @@ namespace biblioteca.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlite("Data Source=library.db");
+            var dbPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "library.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
             optionsBuilder.UseLazyLoadingProxies();
         }
     }

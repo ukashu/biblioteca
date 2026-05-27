@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:biblioteca.Views"
         mc:Ignorable="d"
-        Title="UserDetails" Height="450" Width="800">
+        Title="UserDetails" Height="450" Width="800" MinWidth="400" MinHeight="350">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -41,7 +42,7 @@
         <TextBlock x:Name="CardText" Text="{Binding CardNumber}" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
         <TextBox x:Name="CardBox" Grid.Row="4" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
 
-        <Label Content="Notes" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top"/>
+        <Label Content="Notes" Grid.Row="5" Grid.Column="0"/>
         <TextBlock x:Name="NotesText"
                    Text="{Binding Notes}"
                    Grid.Row="5"
@@ -52,9 +53,10 @@
                  Grid.Row="5"
                  Grid.Column="1"
                  Margin="5"
-                 Height="100"
+                 MinHeight="60"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
                  Visibility="Collapsed"/>
 
         <Label Content="Is active" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>

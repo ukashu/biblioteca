@@ -19,13 +19,15 @@
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    Margin="0,0,0,20">
+        <Grid Grid.Row="1"
+              Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid>
+            <Grid Grid.Column="0">
                 <TextBox x:Name="InputBox"
-                         Width="300"
                          Height="30"
                          Margin="0,0,10,0"
                          VerticalContentAlignment="Center"
@@ -49,15 +51,17 @@
                 </TextBlock>
             </Grid>
 
-            <Button Content="Dodaj"
+            <Button Grid.Column="1"
+                    Content="Dodaj"
                     Width="100"
                     Height="30"
                     Command="{Binding AddBookCommand}" />
+        </Grid>
 
-        </StackPanel>
-
-        <ListBox Grid.Row="2"
-                 ItemsSource="{Binding ReturnedBooks}" />
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto">
+            <ListBox ItemsSource="{Binding ReturnedBooks}" />
+        </ScrollViewer>
 
         <Button Grid.Row="3"
                 Content="Zwróć"
