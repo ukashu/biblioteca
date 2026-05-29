@@ -7,46 +7,63 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView ItemsSource="{Binding Users}" MouseDoubleClick="UsersList_MouseDoubleClick">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
-                    <GridViewColumn Header="Active" DisplayMemberBinding="{Binding IsActive}" Width="60"/>
-                    <GridViewColumn Header="Borrow" Width="90">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Borrow"
-                                        Padding="8,2"
-                                        Command="{Binding DataContext.BorrowBooksForUserCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Details" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Expander Header="Details">
-                                    <StackPanel>
-                                        <TextBlock Text="Phone: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding PhoneNumber}"/>
-                                        <TextBlock Text="Card: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding CardNumber}"/>
-                                        <TextBlock Text="Notes: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding Notes}" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </Expander>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Name="add_user_button"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="usersListView" ItemsSource="{Binding Users}" MouseDoubleClick="UsersList_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="140"/>
+                        <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="140"/>
+                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="250"/>
+                        <GridViewColumn Header="Active" DisplayMemberBinding="{Binding IsActive}" Width="Auto"/>
+                        <GridViewColumn Header="Borrow" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Borrow"
+                                            Padding="8,2"
+                                            Command="{Binding DataContext.BorrowBooksForUserCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Margin="10,0,0,0" Padding="10" Background="#f9f9f9" BorderBrush="#ddd" BorderThickness="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedItem, ElementName=usersListView}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel DataContext="{Binding SelectedItem, ElementName=usersListView}">
+                <TextBlock Text="User Details" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Text="Phone: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding PhoneNumber}" Margin="0,0,0,10"/>
+                <TextBlock Text="Card: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding CardNumber}" Margin="0,0,0,10"/>
+                <TextBlock Text="Notes: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+            </StackPanel>
+        </Border>
+
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="add_user_button"
                 Content="Add User"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
                 Margin="10"
                 Command="{Binding AddUserWithDialogCommand}"/>
     </Grid>

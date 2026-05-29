@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="biblioteca.Views.ReturnBooks"
+<UserControl x:Class="biblioteca.Views.ReturnBooks"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -16,56 +16,59 @@
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
- <!-- FILTRY -->
-<StackPanel Grid.Row="1"
+        <!-- FILTRY -->
+        <StackPanel Grid.Row="1"
             Orientation="Horizontal"
             Margin="0,0,0,15">
 
-    <!-- FILTR UŻYTKOWNIKA -->
-    <StackPanel Margin="0,0,15,0">
+            <!-- FILTR UŻYTKOWNIKA -->
+            <StackPanel Margin="0,0,15,0">
 
-        <TextBlock Text="Wypożyczający"
+                <TextBlock Text="Wypożyczający"
                    Margin="0,0,0,5"/>
 
-        <TextBox Width="200"
+                <TextBox Width="200"
                  Height="30"
                  VerticalContentAlignment="Center"
                  Text="{Binding UserFilter, UpdateSourceTrigger=PropertyChanged}" />
-    </StackPanel>
+            </StackPanel>
 
-    <!-- FILTR ISBN -->
-    <StackPanel>
+            <!-- FILTR ISBN -->
+            <StackPanel>
 
-        <TextBlock Text="ISBN"
+                <TextBlock Text="ISBN"
                    Margin="0,0,0,5"/>
 
-        <TextBox Width="200"
+                <TextBox Width="200"
                  Height="30"
                  VerticalContentAlignment="Center"
                  Text="{Binding IsbnFilter, UpdateSourceTrigger=PropertyChanged}" />
-    </StackPanel>
+            </StackPanel>
 
-</StackPanel>
+        </StackPanel>
 
-        <!-- LISTA -->
-        <ListBox Grid.Row="2"
-                 ItemsSource="{Binding Loans}"
+        <ScrollViewer Grid.Row="2"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+            <!-- LISTA -->
+            <ListBox ItemsSource="{Binding Loans}"
                  SelectedItem="{Binding SelectedLoan}">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="0,0,0,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,10">
 
-                        <TextBlock Text="{Binding BookTitle}"
+                            <TextBlock Text="{Binding BookTitle}"
                                    FontWeight="Bold"/>
 
-                        <TextBlock Text="{Binding UserName}"/>
+                            <TextBlock Text="{Binding UserName}"/>
 
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
 
-        </ListBox>
+            </ListBox>
+        </ScrollViewer>
 
         <!-- BUTTON -->
         <Button Grid.Row="3"

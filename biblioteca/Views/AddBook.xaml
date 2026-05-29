@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:biblioteca.Views"
         mc:Ignorable="d"
-        Title="AddBook" Height="450" Width="800">
+        Title="AddBook" Height="450" Width="800" MinWidth="400" MinHeight="350">
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -40,7 +40,7 @@
         <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10"/>
         
         <TextBlock Text="Opis" Grid.Row="5"/>
-        <TextBox x:Name="DescriptionBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10" Height="80"/>
+        <TextBox x:Name="DescriptionBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10" MinHeight="60" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextWrapping="Wrap"/>
         
         <TextBlock Text="Available" Grid.Row="6"/>
         <CheckBox x:Name="AvailableBox" Grid.Row="6" Grid.Column="1" Margin="0,0,0,10"/>

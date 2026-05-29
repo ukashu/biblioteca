@@ -50,7 +50,7 @@
 - [ ] sortowanie i filtrowanie w zakładce "Book List"
 - [ ] sortowanie i filtrowanie w zakładce "User List"
 ### Ola
-- [ ] responsywność UI
+- [x] responsywność UI
 	- zidentyfikować elementy, które nie skalują się dobrze i poprawić ich zachowanie przy zmianie rozmiaru okna
 	- np. po rozwinięciu kolumny Details w User i Book List, trzeba ją ręcznie rozszerzyć, można zmienić tak, aby automatycznie się rozszerzała albo żeby zawsze wypełniała przestrzeń do prawej krawędzi okna; Można też zmienić layout tak, żeby szczegóły nie były jedną z kolumn a otwierały się zawsze po prawej stronie okna po jednokrotnym kliknięciu na książkę z listy
 ### Wiktoria
