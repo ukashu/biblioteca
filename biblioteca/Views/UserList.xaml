@@ -76,11 +76,28 @@
                 <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" Margin="0,0,0,10"/>
             </StackPanel>
         </Border>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="2">
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="First name" Margin="0,0,0,2"/>
+                    <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="FirstNameFilterTextBox" TextChanged="FirstNameFilterTextBox_TextChanged"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Last name" Margin="0,0,0,2"/>
+                    <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="LastNameFilterTextBox" TextChanged="LastNameFilterTextBox_TextChanged"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Email" Margin="0,0,0,2"/>
+                    <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="EmailFilterTextBox" TextChanged="EmailFilterTextBox_TextChanged"/>
+                </StackPanel>
+            </StackPanel>
 
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="add_user_button"
-                Content="Add User"
-                HorizontalAlignment="Right"
-                Margin="10"
-                Command="{Binding AddUserWithDialogCommand}"/>
+            <Button Grid.Column="1" Name="add_user_button" Content="Add User" Command="{Binding AddUserWithDialogCommand}" />
+        </Grid>
     </Grid>
 </UserControl>

@@ -21,10 +21,19 @@ namespace biblioteca.Views
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
 
+        private ICollectionView _usersView;
+
         public UserList()
         {
             InitializeComponent();
             DataContext = new UserListViewModel();
+
+            Loaded += UserList_Loaded;
+        }
+
+        private void UserList_Loaded(object sender, RoutedEventArgs e)
+        {
+            _usersView = CollectionViewSource.GetDefaultView(usersListView.ItemsSource);
         }
 
         private void UsersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -59,6 +68,59 @@ namespace biblioteca.Views
             listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
             AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
             CollectionViewSource.GetDefaultView(usersListView.ItemsSource).SortDescriptions.Add(new SortDescription(sortBy, newDir));
+        }
+        private void FirstNameFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_usersView == null) return;
+
+            _usersView.Filter = item =>
+            {
+                if (item is not Models.User user) return false;
+
+                string filter = FirstNameFilterTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(filter)) return true;
+
+                return user.FirstName.Contains(filter, StringComparison.OrdinalIgnoreCase);
+            };
+
+            _usersView.Refresh();
+        }
+
+        private void LastNameFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_usersView == null) return;
+
+            _usersView.Filter = item =>
+            {
+                if (item is not Models.User user) return false;
+
+                string filter = LastNameFilterTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(filter)) return true;
+
+                return user.LastName.Contains(filter, StringComparison.OrdinalIgnoreCase);
+            };
+
+            _usersView.Refresh();
+        }
+
+        private void EmailFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_usersView == null) return;
+
+            _usersView.Filter = item =>
+            {
+                if (item is not Models.User user) return false;
+
+                string filter = EmailFilterTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(filter)) return true;
+
+                return user.Email.Contains(filter, StringComparison.OrdinalIgnoreCase);
+            };
+
+            _usersView.Refresh();
         }
     }
 }
