@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Borrow books" Height="420" Width="640">
+        Title="Borrow books" Height="420" Width="640" MinWidth="400" MinHeight="300">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
@@ -21,63 +21,67 @@
                    FontWeight="Bold"
                    Margin="0,0,0,16"/>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    Margin="0,0,0,16">
+        <Grid Grid.Row="1"
+              Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid>
-                <Grid Width="360" Margin="0,0,10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                    <TextBox x:Name="InputBox"
-                             Grid.Row="0"
-                             Height="30"
-                             VerticalContentAlignment="Center"
-                             Text="{Binding InputValue, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox x:Name="InputBox"
+                         Grid.Row="0"
+                         Height="30"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding InputValue, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock Text="ISBN or signature"
-                               Margin="5,0,0,0"
-                               VerticalAlignment="Center"
-                               Foreground="Gray"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=InputBox}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                <TextBlock Text="ISBN or signature"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           Foreground="Gray"
+                           IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=InputBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
-                    <Border Grid.Row="1"
-                            Margin="0,2,0,0"
-                            BorderThickness="1"
-                            BorderBrush="#33000000"
-                            Background="White"
-                            Visibility="{Binding HasSuggestions, Converter={StaticResource BoolToVis}}">
-                        <ListBox x:Name="SuggestionsList"
-                                 ItemsSource="{Binding Suggestions}"
-                                 DisplayMemberPath="Display"
-                                 SelectionChanged="SuggestionsList_SelectionChanged"
-                                 MaxHeight="140" />
-                    </Border>
-                </Grid>
+                <Border Grid.Row="1"
+                        Margin="0,2,0,0"
+                        BorderThickness="1"
+                        BorderBrush="#33000000"
+                        Background="White"
+                        Visibility="{Binding HasSuggestions, Converter={StaticResource BoolToVis}}">
+                    <ListBox x:Name="SuggestionsList"
+                             ItemsSource="{Binding Suggestions}"
+                             DisplayMemberPath="Display"
+                             SelectionChanged="SuggestionsList_SelectionChanged"
+                             MaxHeight="140" />
+                </Border>
             </Grid>
 
-            <Button Content="Add"
+            <Button Grid.Column="1"
+                    Content="Add"
                     Width="100"
                     Height="30"
                     Command="{Binding AddIsbnCommand}" />
-        </StackPanel>
+        </Grid>
 
-        <ListBox Grid.Row="2"
-                 ItemsSource="{Binding BooksToBorrow}" />
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto">
+            <ListBox ItemsSource="{Binding BooksToBorrow}" />
+        </ScrollViewer>
 
         <Button Grid.Row="3"
                 Content="Borrow"

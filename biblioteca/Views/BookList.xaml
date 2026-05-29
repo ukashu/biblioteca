@@ -7,34 +7,52 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView ItemsSource="{Binding Books}" MouseDoubleClick="BooksList_MouseDoubleClick">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
-                    <GridViewColumn Header="PublicationYear" DisplayMemberBinding="{Binding PublicationYear}"/>
-                    <GridViewColumn Header="IsAvailable" DisplayMemberBinding="{Binding IsAvailable}"/>
-                    <GridViewColumn Header="Details" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Expander Header="Details">
-                                    <StackPanel>
-                                        <TextBlock Text="Description: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding Description}"/>
-                                        <TextBlock Text="Genre: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding Genre}"/>
-                                        <TextBlock Text="ISBN: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding Signature}"/>
-                                        <TextBlock Text="Year: " FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding PublicationYear}"/>
-                                    </StackPanel>
-                                </Expander>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Command="{Binding AddBookWithDialogCommand}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="booksListView" ItemsSource="{Binding Books}" MouseDoubleClick="BooksList_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="280"/>
+                        <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="200"/>
+                        <GridViewColumn Header="Year" DisplayMemberBinding="{Binding PublicationYear}" Width="Auto"/>
+                        <GridViewColumn Header="Available" DisplayMemberBinding="{Binding IsAvailable}" Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
+        <Border Grid.Column="1" Margin="10,0,0,0" Padding="10" Background="#f9f9f9" BorderBrush="#ddd" BorderThickness="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedItem, ElementName=booksListView}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel DataContext="{Binding SelectedItem, ElementName=booksListView}">
+                <TextBlock Text="Book Details" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Text="Description: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <TextBlock Text="Genre: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Genre}" Margin="0,0,0,10"/>
+                <TextBlock Text="ISBN: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Signature}" Margin="0,0,0,10"/>
+                <TextBlock Text="Year: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding PublicationYear}" Margin="0,0,0,10"/>
+            </StackPanel>
+        </Border>
+
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" Margin="10" Command="{Binding AddBookWithDialogCommand}"/>
     </Grid>
 </UserControl>
