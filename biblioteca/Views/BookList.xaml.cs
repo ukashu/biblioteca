@@ -23,10 +23,19 @@ namespace biblioteca.Views
     {
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
+
+        public ICollectionView _booksView;
         public BookList()
         {
             InitializeComponent();
             DataContext = new ViewModels.BookListViewModel();
+
+            Loaded += BookList_Loaded;
+        }
+
+        private void BookList_Loaded(object sender, RoutedEventArgs e)
+        {
+            _booksView = CollectionViewSource.GetDefaultView(booksListView.ItemsSource);
         }
 
         private void BooksList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -61,6 +70,57 @@ namespace biblioteca.Views
             listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
             AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
             CollectionViewSource.GetDefaultView(booksListView.ItemsSource).SortDescriptions.Add(new SortDescription(sortBy, newDir));
+        }
+        private void TitleFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_booksView == null) return;
+
+            _booksView.Filter = item =>
+            {
+                if (item is not Models.Book book) return false;
+
+                string filter = TitleFilterTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(filter)) return true;
+
+                return book.Title.Contains(filter, StringComparison.OrdinalIgnoreCase);
+            };
+
+            _booksView.Refresh();
+        }
+        private void AuthorFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_booksView == null) return;
+
+            _booksView.Filter = item =>
+            {
+                if (item is not Models.Book book) return false;
+                string filter = AuthorFilterTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(filter)) return true;
+
+                return book.Author.Contains(filter, StringComparison.OrdinalIgnoreCase);
+            };
+
+            _booksView.Refresh();
+        }
+
+        private void SignatureFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_booksView == null) return;
+
+            _booksView.Filter = item =>
+            {
+                if (item is not Models.Book book) return false;
+
+                string filter = SignatureFilterTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(filter)) return true;
+
+                return book.Signature.Contains(filter, StringComparison.OrdinalIgnoreCase);
+            };
+
+            _booksView.Refresh();
         }
     }
 }

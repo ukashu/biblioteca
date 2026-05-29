@@ -64,7 +64,29 @@
                 <TextBlock Text="{Binding PublicationYear}" Margin="0,0,0,10"/>
             </StackPanel>
         </Border>
+        
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="2">
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Title" Margin="0,0,0,2"/>
+                    <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="TitleFilterTextBox" TextChanged="TitleFilterTextBox_TextChanged"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Author" Margin="0,0,0,2"/>
+                    <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="AuthorFilterTextBox" TextChanged="AuthorFilterTextBox_TextChanged"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Signature" Margin="0,0,0,2"/>
+                    <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="SignatureFilterTextBox" TextChanged="SignatureFilterTextBox_TextChanged"/>
+                </StackPanel>
+            </StackPanel>
 
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" Margin="10" Command="{Binding AddBookWithDialogCommand}"/>
+            <Button Grid.Column="1" Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" Command="{Binding AddBookWithDialogCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>
