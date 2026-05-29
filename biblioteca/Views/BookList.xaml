@@ -20,9 +20,21 @@
             <ListView x:Name="booksListView" ItemsSource="{Binding Books}" MouseDoubleClick="BooksList_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" Width="280"/>
-                        <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" Width="200"/>
-                        <GridViewColumn Header="Year" DisplayMemberBinding="{Binding PublicationYear}" Width="Auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Width="280">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Title" Click="booksListViewColumnHeader_Click">Title</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Width="200">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Author" Click="booksListViewColumnHeader_Click">Author</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding PublicationYear}" Width="Auto">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="PublicationYear" Click="booksListViewColumnHeader_Click">Year</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
                         <GridViewColumn Header="Available" DisplayMemberBinding="{Binding IsAvailable}" Width="Auto"/>
                     </GridView>
                 </ListView.View>
