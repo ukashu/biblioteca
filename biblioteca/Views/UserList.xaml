@@ -20,10 +20,26 @@
             <ListView x:Name="usersListView" ItemsSource="{Binding Users}" MouseDoubleClick="UsersList_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="First name" DisplayMemberBinding="{Binding FirstName}" Width="140"/>
-                        <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding LastName}" Width="140"/>
-                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="250"/>
-                        <GridViewColumn Header="Active" DisplayMemberBinding="{Binding IsActive}" Width="Auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="140">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="FirstName" Click="usersListViewColumnHeader_Click">First name</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding LastName}" Width="140">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="LastName" Click="usersListViewColumnHeader_Click">Last name</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Email}" Width="250">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Email" Click="usersListViewColumnHeader_Click">Email</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Width="Auto">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="IsActive" Click="usersListViewColumnHeader_Click">Active</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
                         <GridViewColumn Header="Borrow" Width="Auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
