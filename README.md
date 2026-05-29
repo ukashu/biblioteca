@@ -47,17 +47,24 @@
 
 ## Łukasz
 - [ ] refaktoryzacja okien details/edit
-- [ ] sortowanie i filtrowanie w zakładce "Book List"
-- [ ] sortowanie i filtrowanie w zakładce "User List"
+- [x] sortowanie i filtrowanie w zakładce "Book List"
+- [x] sortowanie i filtrowanie w zakładce "User List"
 ### Ola
 - [x] responsywność UI
 	- zidentyfikować elementy, które nie skalują się dobrze i poprawić ich zachowanie przy zmianie rozmiaru okna
 	- np. po rozwinięciu kolumny Details w User i Book List, trzeba ją ręcznie rozszerzyć, można zmienić tak, aby automatycznie się rozszerzała albo żeby zawsze wypełniała przestrzeń do prawej krawędzi okna; Można też zmienić layout tak, żeby szczegóły nie były jedną z kolumn a otwierały się zawsze po prawej stronie okna po jednokrotnym kliknięciu na książkę z listy
 ### Wiktoria
-- [ ] filtrowanie po wypożyczającym i ISBN w zakładce "Return Books"
+- [x] filtrowanie po wypożyczającym i ISBN w zakładce "Return Books"
 	- dodać input tekstowy do wpisywania nazwy wypożyczającego i ISBN, po wpisaniu których będzie filtrować listę książek do zwrotu
 ### Natalia
 - [ ] połączenie funkcjonalności Scan Books z bazą danych
 	- zakładkaScan Books działa jak poprzednia implementacja Return Books
 	- wpisanie ISBN powinno wyświetlić propozycje książek do zwrócenia, kliknięcie dodaj dodaje do listy do zwrócenia, a kliknięcie "Zwróć" zwraca książki z tej listy i wyświetla komunikat o sukcesie lub błędzie
 	- kliknięcie Enter po wpisaniu ISBN powinno działać tak samo jak kliknięcie przycisku "Dodaj"
+
+## TODOs na zjazd 10
+- dodać czcionki
+- dodać wyświetlanie okładek książek
+- gdzieś użyć right-click menu?
+- walidacja
+- BUG: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
