@@ -63,8 +63,31 @@
 	- kliknięcie Enter po wpisaniu ISBN powinno działać tak samo jak kliknięcie przycisku "Dodaj"
 
 ## TODOs na zjazd 10
-- dodać czcionki
-- dodać wyświetlanie okładek książek
-- gdzieś użyć right-click menu?
-- walidacja
-- BUG: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
+
+### Łukasz
+- [ ] naprawić relację encji
+- [ ] wyświetlanie liczby wypożyczonych książek w informacjach o użytkowniku
+- [ ] wyświetlanie użytkownika który wypożyczył książkę w informacjach o książce
+- [ ] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
+- [ ] refaktor okien details/edit
+- [ ] dodać czcionki
+- [ ] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
+- [ ] wyświetlanie okładek książek z URL
+### Ola
+- [ ] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
+	- np. wprowadzany przy tworzeniu książki ISBN powinien składać się tylko z określonych znaków
+- [ ] dodać wyświetlanie odpowiednich komunikatów jeżeli input nie spełnia walidacji
+- [ ] zidentyfikować miejsca gdzie jest potrzebny error handling i go dodać
+- [ ] zmienić wygląd UI na bardziej "customowy" poprzez dodanie stylizowania elementów itp.
+### Wiktoria
+- [ ] dodać możliwość zwracania kilku książek na raz (poprzez zaznaczenie kilku)
+	- wylistować zwrócone książki w Success Dialog
+- [ ] zmiany w BookList
+	- [ ] dodać kolumnę z datą wypożyczenia
+	- [ ] podświetlać na czerwono książki z datą wypożyczenia >30 dni przed dzisiaj
+	- [ ] dodać kontrolkę po kliknięciu której widać tylko książki z datą wypożyczenia >30 przed dzisiaj
+### Natalia
+- [ ] połączenie funkcjonalności Scan Books z bazą danych
+	- zakładkaScan Books działa jak poprzednia implementacja Return Books
+	- wpisanie ISBN powinno wyświetlić propozycje książek do zwrócenia, kliknięcie dodaj dodaje do listy do zwrócenia, a kliknięcie "Zwróć" zwraca książki z tej listy i wyświetla komunikat o sukcesie lub błędzie
+	- kliknięcie Enter po wpisaniu ISBN powinno działać tak samo jak kliknięcie przycisku "Dodaj"
