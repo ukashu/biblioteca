@@ -1,17 +1,20 @@
 ﻿using biblioteca.Data;
 using biblioteca.Models;
 using biblioteca.MVVM;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace biblioteca.ViewModels
 {
-    public class BookListViewModel
+    public class BookListViewModel : INotifyPropertyChanged
     {
         public string Title => "Books";
 
@@ -19,6 +22,40 @@ namespace biblioteca.ViewModels
 
         public RelayCommand AddBookCommand => new RelayCommand(execute => AddBook());
         public RelayCommand AddBookWithDialogCommand => new RelayCommand(execute => AddBookWithDialog());
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private Book _selectedBook;
+        public Book SelectedBook
+        {
+            get => _selectedBook;
+            set
+            {
+                _selectedBook = value;
+                OnPropertyChanged(nameof(SelectedBook));
+                OnPropertyChanged(nameof(CurrentBorrower));
+            }
+        }
+
+        public string CurrentBorrower
+        {
+            get
+            {
+                var loan = SelectedBook?
+                    .Loans?
+                    .FirstOrDefault(l => l.ReturnDate == null);
+
+                if (loan?.User == null)
+                    return "Available";
+
+                return loan.UserFullName;
+            }
+        }
 
         public BookListViewModel()
         {
@@ -35,7 +72,10 @@ namespace biblioteca.ViewModels
                 db.SaveChanges();
             }
 
-            var booksFromDb = db.Books.ToList();
+            var booksFromDb = db.Books
+                .Include(b=>b.Loans)
+                    .ThenInclude(l => l.User)
+                .ToList();
             Books = new ObservableCollection<Book>(booksFromDb);
         }
 

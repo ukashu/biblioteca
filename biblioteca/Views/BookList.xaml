@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="booksListView" ItemsSource="{Binding Books}" MouseDoubleClick="BooksList_MouseDoubleClick">
+            <ListView x:Name="booksListView" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook, Mode=TwoWay}" MouseDoubleClick="BooksList_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Title}" Width="280">
@@ -62,6 +62,8 @@
                 <TextBlock Text="{Binding Signature}" Margin="0,0,0,10"/>
                 <TextBlock Text="Year: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding PublicationYear}" Margin="0,0,0,10"/>
+                <TextBlock Text="Borrowed by:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding DataContext.CurrentBorrower, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </StackPanel>
         </Border>
         
