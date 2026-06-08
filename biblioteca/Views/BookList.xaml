@@ -54,6 +54,7 @@
             </Border.Style>
             <StackPanel DataContext="{Binding SelectedItem, ElementName=booksListView}">
                 <TextBlock Text="Book Details" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <Image Source="{Binding CoverImagePath}" Width="60" Height="100" Stretch="Uniform"/>
                 <TextBlock Text="Description: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,10"/>
                 <TextBlock Text="Genre: " FontWeight="Bold"/>

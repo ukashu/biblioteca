@@ -65,14 +65,17 @@
 ## TODOs na zjazd 10
 
 ### Łukasz
-- [ ] naprawić relację encji
-- [ ] wyświetlanie liczby wypożyczonych książek w informacjach o użytkowniku
-- [ ] wyświetlanie użytkownika który wypożyczył książkę w informacjach o książce
+- [x] naprawić relację encji
+- [x] wyświetlanie liczby wypożyczonych książek w informacjach o użytkowniku
+- [x] wyświetlanie użytkownika który wypożyczył książkę w informacjach o książce
 - [ ] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
 - [ ] refaktor okien details/edit
 - [ ] dodać czcionki
 - [ ] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
-- [ ] wyświetlanie okładek książek z URL
+- [x] wyświetlanie okładek książek z URL
+- [ ] BUGFIX: ISBN powinno być unikatowe
+- [ ] BUGFIX: Book Details visual bug
+- [ ] wyświetl okładkę w Book Details
 ### Ola
 - [ ] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
 	- np. wprowadzany przy tworzeniu książki ISBN powinien składać się tylko z określonych znaków
