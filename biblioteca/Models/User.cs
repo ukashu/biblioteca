@@ -14,7 +14,7 @@ namespace biblioteca.Models
         private bool _isActive = true;
 
         public int Id { get; set; }
-        public virtual List<Loan> Loans { get; set; } = new();
+
         public string FirstName
         {
             get => _firstName;
@@ -56,6 +56,8 @@ namespace biblioteca.Models
             get => _isActive;
             set { _isActive = value; OnPropertyChanged(); }
         }
+        public virtual List<Loan> Loans { get; set; } = new();
+        public int BorrowedBooksCount => Loans?.Count(l => l.ReturnDate == null) ?? 0;
 
         public User() { }
 

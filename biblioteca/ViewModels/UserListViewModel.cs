@@ -1,15 +1,19 @@
 ﻿using biblioteca.Models;
 using biblioteca.MVVM;
+using biblioteca.Services;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace biblioteca.ViewModels
 {
-    public class UserListViewModel
+    public class UserListViewModel : INotifyPropertyChanged
     {
         public string Title => "Users";
 
-        public ObservableCollection<User> Users { get; set; }
+        public ObservableCollection<User> Users { get; } = new();
 
         public RelayCommand AddUserWithDialogCommand => new RelayCommand(execute => AddUserWithDialog());
         public RelayCommand BorrowBooksForUserCommand => new RelayCommand(
@@ -17,7 +21,32 @@ namespace biblioteca.ViewModels
             canExecute => canExecute is User
         );
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private User _selectedUser;
+        public User SelectedUser
+        {
+            get => _selectedUser;
+            set
+            {
+                _selectedUser = value;
+                OnPropertyChanged(nameof(SelectedUser));
+            }
+        }
+
         public UserListViewModel()
+        {
+            LoadUsers();
+
+            EventBus.NewLoan += LoadUsers;
+        }
+        
+        private void LoadUsers()
         {
             using var db = new Data.LibraryContext();
 
@@ -32,8 +61,16 @@ namespace biblioteca.ViewModels
                 db.SaveChanges();
             }
 
-            var usersFromDb = db.Users.ToList();
-            Users = new ObservableCollection<User>(usersFromDb);
+            var usersFromDb = db.Users
+                .Include(u => u.Loans)
+                .ToList();
+
+            Users.Clear();
+
+            foreach (var user in usersFromDb)
+            {
+                Users.Add(user);
+            }
         }
 
         private void AddUserWithDialog()
