@@ -4,6 +4,7 @@ using biblioteca.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -28,6 +29,7 @@ namespace biblioteca.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private int? _lastSelectedUserId;
         private User _selectedUser;
         public User SelectedUser
         {
@@ -35,6 +37,10 @@ namespace biblioteca.ViewModels
             set
             {
                 _selectedUser = value;
+
+                if (value != null)
+                    _lastSelectedUserId = value.Id;
+
                 OnPropertyChanged(nameof(SelectedUser));
             }
         }
@@ -71,6 +77,12 @@ namespace biblioteca.ViewModels
             {
                 Users.Add(user);
             }
+
+            if (_lastSelectedUserId != null)
+            {
+                SelectedUser = Users.FirstOrDefault(u => u?.Id == _lastSelectedUserId);
+            }
+           
         }
 
         private void AddUserWithDialog()

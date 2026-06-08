@@ -60,13 +60,13 @@
                 <Style TargetType="Border">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedItem, ElementName=usersListView}" Value="{x:Null}">
+                        <DataTrigger Binding="{Binding SelectedUser}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <StackPanel DataContext="{Binding SelectedItem, ElementName=usersListView}">
+            <StackPanel DataContext="{Binding SelectedUser}">
                 <TextBlock Text="User Details" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
                 <TextBlock Text="Phone: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding PhoneNumber}" Margin="0,0,0,10"/>
