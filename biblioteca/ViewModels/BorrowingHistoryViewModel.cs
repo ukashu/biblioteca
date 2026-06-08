@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using biblioteca.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace biblioteca.ViewModels
 {
@@ -14,19 +15,10 @@ namespace biblioteca.ViewModels
         {
             using var db = new Data.LibraryContext();
 
-            if (!db.Loans.Any())
-            {
-                db.Loans.Add(new Loan
-                {
-                    BookTitle = "1984",
-                    UserName = "Test User",
-                    BorrowDate = DateTime.Now
-                });
-
-                db.SaveChanges();
-            }
-
-            var loansFromDb = db.Loans.ToList();
+            var loansFromDb = db.Loans
+                .Include(l => l.User)
+                .Include(l => l.Book)
+                .ToList();
             Loans = new ObservableCollection<Loan>(loansFromDb);
         }
     }

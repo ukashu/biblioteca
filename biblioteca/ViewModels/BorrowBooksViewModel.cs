@@ -156,8 +156,8 @@ namespace biblioteca.ViewModels
 
                     db.Loans.Add(new Loan
                     {
-                        BookTitle = book.Title,
-                        UserName = $"{userInDb.FirstName} {userInDb.LastName}",
+                        BookId = book.Id,
+                        UserId = userInDb.Id,
                         BorrowDate = DateTime.Now,
                         ReturnDate = null
                     });

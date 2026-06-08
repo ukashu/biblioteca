@@ -18,6 +18,8 @@ namespace biblioteca.Models
 
         public int Id { get; set; }
 
+        public virtual List<Loan> Loans { get; set; } = new();
+
         public string Title
         {
             get => _title;

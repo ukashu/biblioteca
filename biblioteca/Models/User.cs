@@ -14,6 +14,7 @@ namespace biblioteca.Models
         private bool _isActive = true;
 
         public int Id { get; set; }
+        public virtual List<Loan> Loans { get; set; } = new();
         public string FirstName
         {
             get => _firstName;

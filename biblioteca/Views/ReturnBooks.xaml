@@ -58,10 +58,10 @@
                     <DataTemplate>
                         <StackPanel Margin="0,0,0,10">
 
-                            <TextBlock Text="{Binding BookTitle}"
+                            <TextBlock Text="{Binding Book.Title}"
                                    FontWeight="Bold"/>
 
-                            <TextBlock Text="{Binding UserName}"/>
+                            <TextBlock Text="{Binding UserFullName}"/>
 
                         </StackPanel>
                     </DataTemplate>
