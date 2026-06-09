@@ -69,13 +69,13 @@
 - [x] wyświetlanie liczby wypożyczonych książek w informacjach o użytkowniku
 - [x] wyświetlanie użytkownika który wypożyczył książkę w informacjach o książce
 - [ ] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
-- [ ] refaktor okien details/edit
+- [x] refaktor okien details/edit
 - [ ] dodać czcionki
 - [ ] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
 - [x] wyświetlanie okładek książek z URL
 - [ ] BUGFIX: ISBN powinno być unikatowe
 - [x] BUGFIX: Book Details visual bug
-- [ ] wyświetl okładkę w Book Details
+- [x] wyświetl okładkę w Book Details
 ### Ola
 - [ ] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
 	- np. wprowadzany przy tworzeniu książki ISBN powinien składać się tylko z określonych znaków
