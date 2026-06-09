@@ -6,55 +6,103 @@
         xmlns:local="clr-namespace:biblioteca.Views"
         mc:Ignorable="d"
         Title="BookDetails" Height="450" Width="800" MinWidth="400" MinHeight="350">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid Margin="10" x:Name="ViewDetailsPanel">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Title -->
-        <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="TitleText" Text="{Binding Title}" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        <TextBox x:Name="TitleBox" Grid.Row="0" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
+            <!-- Title -->
+            <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="TitleText" Text="{Binding Title}" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
-        <!-- Author -->
-        <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="AuthorText" Text="{Binding Author}" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
+            <!-- Author -->
+            <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="AuthorText" Text="{Binding Author}" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
-        <!-- Publication Year -->
-        <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="PublicationYearText" Text="{Binding PublicationYear}" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        <TextBox x:Name="PublicationYearBox" Grid.Row="2" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
+            <!-- Publication Year -->
+            <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="PublicationYearText" Text="{Binding PublicationYear}" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
-        <!-- Genre -->
-        <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="GenreText" Text="{Binding Genre}" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
+            <!-- Genre -->
+            <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="GenreText" Text="{Binding Genre}" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
-        <!-- Signature -->
-        <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="SignatureText" Text="{Binding Signature}" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
+            <!-- Signature -->
+            <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="SignatureText" Text="{Binding Signature}" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
-        <!-- Description -->
-        <Label Content="Description" Grid.Row="5" Grid.Column="0"/>
-        <TextBlock x:Name="DescriptionText"
+            <!-- Description -->
+            <Label Content="Description" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock x:Name="DescriptionText"
                    Text="{Binding Description}"
                    Grid.Row="5"
                    Grid.Column="1"
                    Margin="5"
                    TextWrapping="Wrap"/>
-        <TextBox x:Name="DescriptionBox"
+
+            <!-- Is Available -->
+            <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="IsAvailableText" Text="{Binding IsAvailable}" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="7"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,15,0,0">
+                <Button x:Name="DeleteButton" Content="Delete" Width="80" Margin="5" Click="DeleteButton_Click"/>
+                <Button x:Name="EditButton" Content="Edit" Width="80" Margin="5" Click="EditButton_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="10" x:Name="EditDetailsPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title -->
+            <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="TitleBox" Grid.Row="0" Grid.Column="1" Margin="5" />
+
+            <!-- Author -->
+            <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="5" />
+
+            <!-- Publication Year -->
+            <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="PublicationYearBox" Grid.Row="2" Grid.Column="1" Margin="5" />
+
+            <!-- Genre -->
+            <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="5" />
+
+            <!-- Signature -->
+            <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="5" />
+
+            <!-- Description -->
+            <Label Content="Description" Grid.Row="5" Grid.Column="0"/>
+            <TextBox x:Name="DescriptionBox"
                  Grid.Row="5"
                  Grid.Column="1"
                  Margin="5"
@@ -62,23 +110,21 @@
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  VerticalScrollBarVisibility="Auto"
-                 Visibility="Collapsed"/>
+                 />
 
-        <!-- Is Available -->
-        <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="IsAvailableText" Text="{Binding IsAvailable}" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-        <CheckBox x:Name="IsAvailableBox" Grid.Row="6" Grid.Column="1" Margin="5" Visibility="Collapsed"/>
+            <!-- Is Available -->
+            <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+            <CheckBox x:Name="IsAvailableBox" Grid.Row="6" Grid.Column="1" Margin="5" />
 
-        <!-- Buttons -->
-        <StackPanel Grid.Row="7"
+            <!-- Buttons -->
+            <StackPanel Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,15,0,0">
-            <Button x:Name="DeleteButton" Content="Delete" Width="80" Margin="5" Click="DeleteButton_Click"/>
-            <Button x:Name="EditButton" Content="Edit" Width="80" Margin="5" Click="EditButton_Click"/>
-            <Button x:Name="SaveButton" Content="Save" Width="80" Margin="5" Click="SaveButton_Click" Visibility="Collapsed"/>
-            <Button x:Name="CancelButton" Content="Cancel" Width="80" Margin="5" Click="CancelButton_Click" Visibility="Collapsed"/>
-        </StackPanel>
+                <Button x:Name="SaveButton" Content="Save" Width="80" Margin="5" Click="SaveButton_Click"/>
+                <Button x:Name="CancelButton" Content="Cancel" Width="80" Margin="5" Click="CancelButton_Click" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
