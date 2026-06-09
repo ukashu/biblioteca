@@ -17,7 +17,13 @@
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="usersListView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" MouseDoubleClick="UsersList_MouseDoubleClick">
+            <ListView x:Name="usersListView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="UserItem_MouseDoubleClick"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="140">

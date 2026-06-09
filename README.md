@@ -71,7 +71,7 @@
 - [ ] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
 - [x] refaktor okien details/edit
 - [ ] dodać czcionki
-- [ ] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
+- [x] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
 - [x] wyświetlanie okładek książek z URL
 - [ ] BUGFIX: ISBN powinno być unikatowe
 - [x] BUGFIX: Book Details visual bug
