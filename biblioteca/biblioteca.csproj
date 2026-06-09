@@ -10,11 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Covers\default.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\Covers\default.png" />
+    <Compile Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+    <Page Remove="Images\**" />
   </ItemGroup>
 
   <ItemGroup>

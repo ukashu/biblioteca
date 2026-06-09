@@ -74,7 +74,7 @@
 - [ ] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
 - [x] wyświetlanie okładek książek z URL
 - [ ] BUGFIX: ISBN powinno być unikatowe
-- [ ] BUGFIX: Book Details visual bug
+- [x] BUGFIX: Book Details visual bug
 - [ ] wyświetl okładkę w Book Details
 ### Ola
 - [ ] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
