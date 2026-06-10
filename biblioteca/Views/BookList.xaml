@@ -17,7 +17,21 @@
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="booksListView" ItemsSource="{Binding Books}" MouseDoubleClick="BooksList_MouseDoubleClick">
+            <ListView x:Name="booksListView"
+                ItemsSource="{Binding Books}"
+                MouseDoubleClick="BooksList_MouseDoubleClick">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOverdue}"
+                                    Value="True">
+                            <Setter Property="Background"
+                                    Value="LightCoral"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Title}" Width="280">
@@ -30,6 +44,9 @@
                                 <GridViewColumnHeader Tag="Author" Click="booksListViewColumnHeader_Click">Author</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
+                       <GridViewColumn Header="Borrow Date"
+                DisplayMemberBinding="{Binding BorrowDate}"
+                Width="140"/>
                         <GridViewColumn DisplayMemberBinding="{Binding PublicationYear}" Width="Auto">
                             <GridViewColumn.Header>
                                 <GridViewColumnHeader Tag="PublicationYear" Click="booksListViewColumnHeader_Click">Year</GridViewColumnHeader>
@@ -84,6 +101,12 @@
                     <TextBlock Text="Signature" Margin="0,0,0,2"/>
                     <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="SignatureFilterTextBox" TextChanged="SignatureFilterTextBox_TextChanged"/>
                 </StackPanel>
+                <CheckBox x:Name="OverdueOnlyCheckBox"
+                    Content="Tylko >30 dni"
+                    Margin="10,22,0,0"
+                    VerticalAlignment="Center"
+                    Checked="OverdueOnlyCheckBox_Changed"
+                    Unchecked="OverdueOnlyCheckBox_Changed"/>
             </StackPanel>
 
             <Button Grid.Column="1" Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" Command="{Binding AddBookWithDialogCommand}"/>

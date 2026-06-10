@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using biblioteca.Services;
+using System.Collections.Generic;
 
 namespace biblioteca.ViewModels
 {
@@ -51,16 +52,8 @@ public string IsbnFilter
         }
     }
 
-    private Loan _selectedLoan;
-    public Loan SelectedLoan
-    {
-        get => _selectedLoan;
-        set
-        {
-            _selectedLoan = value;
-            OnPropertyChanged(nameof(SelectedLoan));
-        }
-    }
+    public ObservableCollection<Loan> SelectedLoans { get; }
+    = new ObservableCollection<Loan>();
 
     public RelayCommand ReturnBookCommand { get; }
 
@@ -72,7 +65,7 @@ public string IsbnFilter
 
         ReturnBookCommand = new RelayCommand(
             execute => ReturnBook(),
-            canExecute => SelectedLoan != null && SelectedLoan.ReturnDate == null
+            canExecute => SelectedLoans.Any()
         );
 
         LoadLoans();
@@ -84,7 +77,6 @@ public string IsbnFilter
         .Where(l => l.ReturnDate == null)
         .ToList();
 
-    // filtrowanie po użytkowniku
     if (!string.IsNullOrWhiteSpace(UserFilter))
     {
         loans = loans
@@ -93,7 +85,6 @@ public string IsbnFilter
             .ToList();
     }
 
-    // filtrowanie po ISBN (Signature)
     if (!string.IsNullOrWhiteSpace(IsbnFilter))
     {
         loans = loans
@@ -114,23 +105,39 @@ public string IsbnFilter
 
     private void ReturnBook()
     {
-        if (SelectedLoan == null) return;
+        if (!SelectedLoans.Any())
+            return;
 
-        SelectedLoan.ReturnDate = DateTime.Now;
+        var returnedBooks = new List<string>();
 
-        var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.BookTitle);
-        if (book != null)
+        foreach (var loan in SelectedLoans.ToList())
         {
-            book.IsAvailable = true;
+            loan.ReturnDate = DateTime.Now;
+
+            var book = _context.Books
+                .FirstOrDefault(b => b.Title == loan.BookTitle);
+
+            if (book != null)
+            {
+                book.IsAvailable = true;
+            }
+
+            returnedBooks.Add(loan.BookTitle);
         }
 
         _context.SaveChanges();
 
-        MessageBox.Show("Książka została zwrócona!");
+        MessageBox.Show(
+            "Zwrócono książki:\n\n" +
+            string.Join("\n", returnedBooks),
+            "Sukces",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
 
-        LoadLoans(); 
+        SelectedLoans.Clear();
+
+        LoadLoans();
     }
-
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected void OnPropertyChanged(string name)

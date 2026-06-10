@@ -1,4 +1,4 @@
-<UserControl x:Class="biblioteca.Views.ReturnBooks"
+﻿<UserControl x:Class="biblioteca.Views.ReturnBooks"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
@@ -16,61 +16,58 @@
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
-        <!-- FILTRY -->
-        <StackPanel Grid.Row="1"
-            Orientation="Horizontal"
-            Margin="0,0,0,15">
 
-            <!-- FILTR UŻYTKOWNIKA -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,15">
+
+
             <StackPanel Margin="0,0,15,0">
 
                 <TextBlock Text="Wypożyczający"
-                   Margin="0,0,0,5"/>
+                        Margin="0,0,0,5"/>
 
                 <TextBox Width="200"
-                 Height="30"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding UserFilter, UpdateSourceTrigger=PropertyChanged}" />
+                        Height="30"
+                        VerticalContentAlignment="Center"
+                        Text="{Binding UserFilter, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
-            <!-- FILTR ISBN -->
             <StackPanel>
 
                 <TextBlock Text="ISBN"
-                   Margin="0,0,0,5"/>
+                        Margin="0,0,0,5"/>
 
                 <TextBox Width="200"
-                 Height="30"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding IsbnFilter, UpdateSourceTrigger=PropertyChanged}" />
+                        Height="30"
+                        VerticalContentAlignment="Center"
+                        Text="{Binding IsbnFilter, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
         </StackPanel>
 
-        <ScrollViewer Grid.Row="2"
-                        VerticalScrollBarVisibility="Auto"
-                        HorizontalScrollBarVisibility="Disabled">
-            <!-- LISTA -->
-            <ListBox ItemsSource="{Binding Loans}"
-                 SelectedItem="{Binding SelectedLoan}">
+        <ListBox x:Name="LoansListBox"
+         Grid.Row="2"
+         ItemsSource="{Binding Loans}"
+         SelectionMode="Extended"
+         SelectionChanged="LoansListBox_SelectionChanged">
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="0,0,0,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,0,0,10">
 
-                            <TextBlock Text="{Binding BookTitle}"
+                        <TextBlock Text="{Binding BookTitle}"
                                    FontWeight="Bold"/>
 
-                            <TextBlock Text="{Binding UserName}"/>
+                        <TextBlock Text="{Binding UserName}"/>
 
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
 
-            </ListBox>
-        </ScrollViewer>
+        </ListBox>
 
-        <!-- BUTTON -->
+
         <Button Grid.Row="3"
                 Content="Zwróć książkę"
                 Command="{Binding ReturnBookCommand}"

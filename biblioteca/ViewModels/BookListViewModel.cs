@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace biblioteca.ViewModels
 {
@@ -15,7 +16,7 @@ namespace biblioteca.ViewModels
     {
         public string Title => "Books";
 
-        public ObservableCollection<Book> Books { get; set; }
+        public ObservableCollection<BookListItem> Books { get; set; }
 
         public RelayCommand AddBookCommand => new RelayCommand(execute => AddBook());
         public RelayCommand AddBookWithDialogCommand => new RelayCommand(execute => AddBookWithDialog());
@@ -35,9 +36,24 @@ namespace biblioteca.ViewModels
                 db.SaveChanges();
             }
 
-            var booksFromDb = db.Books.ToList();
-            Books = new ObservableCollection<Book>(booksFromDb);
-        }
+            var books = db.Books.ToList();
+
+          var items = books.Select(book =>
+                {
+                    var loan = db.Loans
+                        .Where(l => l.ReturnDate == null)
+                        .ToList()
+                        .FirstOrDefault(l => l.BookTitle == book.Title);
+
+                    return new BookListItem
+                    {
+                        Book = book,
+                        BorrowDate = loan?.BorrowDate
+                    };
+                });
+
+            Books = new ObservableCollection<BookListItem>(items);
+                    }
 
         private void AddBook()
         {
@@ -55,7 +71,11 @@ namespace biblioteca.ViewModels
                 db.Books.Add(newBook);
                 db.SaveChanges();
 
-                Books.Add(newBook);
+                Books.Add(new BookListItem
+                {
+                    Book = newBook,
+                    BorrowDate = null
+                });
             }
         }
 
@@ -68,7 +88,12 @@ namespace biblioteca.ViewModels
             db.Books.Remove(book);
             db.SaveChanges();
 
-            Books.Remove(book);
+            var item = Books.FirstOrDefault(x => x.Id == book.Id);
+
+            if (item != null)
+            {
+                Books.Remove(item);
+            }
         }
 
         public void UpdateBook(Book updatedBook)
