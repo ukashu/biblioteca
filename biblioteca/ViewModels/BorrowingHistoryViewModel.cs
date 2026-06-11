@@ -13,13 +13,20 @@ namespace biblioteca.ViewModels
 
         public BorrowingHistoryViewModel()
         {
-            using var db = new Data.LibraryContext();
-
-            var loansFromDb = db.Loans
-                .Include(l => l.User)
-                .Include(l => l.Book)
-                .ToList();
-            Loans = new ObservableCollection<Loan>(loansFromDb);
+            Loans = new ObservableCollection<Loan>();
+            try
+            {
+                using var db = new Data.LibraryContext();
+                var loansFromDb = db.Loans
+                    .Include(l => l.User)
+                    .Include(l => l.Book)
+                    .ToList();
+                Loans = new ObservableCollection<Loan>(loansFromDb);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Błąd podczas wczytywania historii wypożyczeń: {ex.Message}", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
     }
 }

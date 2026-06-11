@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -36,7 +37,7 @@
         <TextBlock Text="Gatunek" Grid.Row="3"/>
         <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10"/>
         
-        <TextBlock Text="Sygnatura" Grid.Row="4"/>
+        <TextBlock Text="Sygnatura/ISBN" Grid.Row="4"/>
         <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10"/>
         
         <TextBlock Text="Opis" Grid.Row="5"/>
@@ -45,8 +46,10 @@
         <TextBlock Text="Available" Grid.Row="6"/>
         <CheckBox x:Name="AvailableBox" Grid.Row="6" Grid.Column="1" Margin="0,0,0,10"/>
 
+        <TextBlock x:Name="ErrorTextBlock" Grid.Row="7" Grid.ColumnSpan="2" Foreground="Red" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
         <Button Content="Dodaj książkę"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.ColumnSpan="2"
                 Margin="10,10,10,10"
                 HorizontalAlignment="Right"

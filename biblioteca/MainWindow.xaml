@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:biblioteca"
         xmlns:viewModels="clr-namespace:biblioteca.ViewModels"
         mc:Ignorable="d"
-        Title="Biblioteka" Height="600" Width="1000" MinWidth="640" MinHeight="400" WindowStartupLocation="CenterScreen">
+        Title="Biblioteka" Height="600" Width="1000" MinWidth="640" MinHeight="400" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>

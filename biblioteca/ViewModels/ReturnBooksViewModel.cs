@@ -74,31 +74,38 @@ public string IsbnFilter
 
  public void LoadLoans()
 {
-    var loans = _context.Loans
-        .Where(l => l.ReturnDate == null)
-        .Include(l => l.Book)
-        .ToList();
-
-    if (!string.IsNullOrWhiteSpace(UserFilter))
+    try
     {
-        loans = loans
-            .Where(l => l.User.LastName != null &&
-                        l.User.LastName.ToLower().Contains(UserFilter.ToLower()))
+        var loans = _context.Loans
+            .Where(l => l.ReturnDate == null)
+            .Include(l => l.Book)
             .ToList();
-    }
 
-    if (!string.IsNullOrWhiteSpace(IsbnFilter))
+        if (!string.IsNullOrWhiteSpace(UserFilter))
+        {
+            loans = loans
+                .Where(l => l.User.LastName != null &&
+                            l.User.LastName.ToLower().Contains(UserFilter.ToLower()))
+                .ToList();
+        }
+
+        if (!string.IsNullOrWhiteSpace(IsbnFilter))
+        {
+            loans = loans
+                .Where(l =>
+                    l.Book != null &&
+                    l.Book.Signature != null &&
+                    l.Book.Signature.ToLower().Contains(IsbnFilter.ToLower())
+                )
+                .ToList();
+        }
+
+        Loans = new ObservableCollection<Loan>(loans);
+    }
+    catch (Exception ex)
     {
-        loans = loans
-            .Where(l =>
-                l.Book != null &&
-                l.Book.Signature != null &&
-                l.Book.Signature.ToLower().Contains(IsbnFilter.ToLower())
-            )
-            .ToList();
+        MessageBox.Show($"Błąd podczas ładowania wypożyczeń: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
     }
-
-    Loans = new ObservableCollection<Loan>(loans);
 }
 
     private void ReturnBook()

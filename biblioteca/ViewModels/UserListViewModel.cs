@@ -92,37 +92,58 @@ namespace biblioteca.ViewModels
             {
                 var newUser = addUserWindow.CreatedUser;
 
-                using var db = new Data.LibraryContext();
-                db.Users.Add(newUser);
-                db.SaveChanges();
+                try
+                {
+                    using var db = new Data.LibraryContext();
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
 
-                Users.Add(newUser);
+                    Users.Add(newUser);
+                }
+                catch (System.Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Wystąpił błąd podczas dodawania użytkownika: {ex.Message}", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
             }
         }
 
         public void DeleteUser(User user)
         {
             if (user == null) return;
-            using var db = new Data.LibraryContext();
-            var userToDelete = db.Users.FirstOrDefault(u => u.Id == user.Id);
-            if (userToDelete != null)
+            try
             {
-                db.Users.Remove(userToDelete);
-                db.SaveChanges();
-                Users.Remove(user);
+                using var db = new Data.LibraryContext();
+                var userToDelete = db.Users.FirstOrDefault(u => u.Id == user.Id);
+                if (userToDelete != null)
+                {
+                    db.Users.Remove(userToDelete);
+                    db.SaveChanges();
+                    Users.Remove(user);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Wystąpił błąd podczas usuwania użytkownika: {ex.Message}", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 
         public void UpdateUser(User updatedUser)
         {
-            using var db = new Data.LibraryContext();
+            try
+            {
+                using var db = new Data.LibraryContext();
 
-            var userInDb = db.Users.Find(updatedUser.Id);
-            if (userInDb == null) return;
+                var userInDb = db.Users.Find(updatedUser.Id);
+                if (userInDb == null) return;
 
-            userInDb.CopyFrom(updatedUser);
+                userInDb.CopyFrom(updatedUser);
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Wystąpił błąd podczas aktualizacji użytkownika: {ex.Message}", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
 
         private void OpenBorrowBooksWindow(User? user)
