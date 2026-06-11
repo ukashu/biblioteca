@@ -1,5 +1,6 @@
 ﻿using biblioteca.Helpers;
 using biblioteca.ViewModels;
+using Castle.DynamicProxy.Generators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,20 @@ namespace biblioteca.Views
                     var detailsWindow = new BookDetails(selectedBook, viewModel.DeleteBook, viewModel.UpdateBook);
                     detailsWindow.ShowDialog();
                 }
+            }
+        }
+        private void BookItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is not ListViewItem item)
+                return;
+
+            if (item.DataContext is not Models.Book selectedBook)
+                return;
+
+            if (DataContext is BookListViewModel viewModel)
+            {
+                var detailsWindow = new BookDetails(selectedBook, viewModel.DeleteBook, viewModel.UpdateBook);
+                detailsWindow.ShowDialog();
             }
         }
 

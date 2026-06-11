@@ -26,11 +26,11 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Book"
-                                    Binding="{Binding BookTitle}"
+                                    Binding="{Binding Book.Title}"
                                     Width="*" />
 
                 <DataGridTextColumn Header="User"
-                                    Binding="{Binding UserName}"
+                                    Binding="{Binding UserFullName}"
                                     Width="*" />
 
                 <DataGridTextColumn Header="Borrow Date"

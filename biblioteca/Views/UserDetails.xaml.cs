@@ -49,48 +49,14 @@ namespace biblioteca.Views
 
         private void EnterViewMode()
         {
-            FirstNameText.Visibility = Visibility.Visible;
-            LastNameText.Visibility = Visibility.Visible;
-            EmailText.Visibility = Visibility.Visible;
-            PhoneText.Visibility = Visibility.Visible;
-            CardText.Visibility = Visibility.Visible;
-            NotesText.Visibility = Visibility.Visible;
-            IsActiveText.Visibility = Visibility.Visible;
-
-            FirstNameBox.Visibility = Visibility.Collapsed;
-            LastNameBox.Visibility = Visibility.Collapsed;
-            EmailBox.Visibility = Visibility.Collapsed;
-            PhoneBox.Visibility = Visibility.Collapsed;
-            CardBox.Visibility = Visibility.Collapsed;
-            NotesBox.Visibility = Visibility.Collapsed;
-            IsActiveBox.Visibility = Visibility.Collapsed;
-
-            EditButton.Visibility = Visibility.Visible;
-            SaveButton.Visibility = Visibility.Collapsed;
-            CancelButton.Visibility = Visibility.Collapsed;
+            ViewDetailsPanel.Visibility = Visibility.Visible;
+            EditDetailsPanel.Visibility = Visibility.Collapsed;
         }
 
         private void EnterEditMode()
         {
-            FirstNameText.Visibility = Visibility.Collapsed;
-            LastNameText.Visibility = Visibility.Collapsed;
-            EmailText.Visibility = Visibility.Collapsed;
-            PhoneText.Visibility = Visibility.Collapsed;
-            CardText.Visibility = Visibility.Collapsed;
-            NotesText.Visibility = Visibility.Collapsed;
-            IsActiveText.Visibility = Visibility.Collapsed;
-
-            FirstNameBox.Visibility = Visibility.Visible;
-            LastNameBox.Visibility = Visibility.Visible;
-            EmailBox.Visibility = Visibility.Visible;
-            PhoneBox.Visibility = Visibility.Visible;
-            CardBox.Visibility = Visibility.Visible;
-            NotesBox.Visibility = Visibility.Visible;
-            IsActiveBox.Visibility = Visibility.Visible;
-
-            EditButton.Visibility = Visibility.Collapsed;
-            SaveButton.Visibility = Visibility.Visible;
-            CancelButton.Visibility = Visibility.Visible;
+            ViewDetailsPanel.Visibility = Visibility.Collapsed;
+            EditDetailsPanel.Visibility = Visibility.Visible;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)

@@ -48,6 +48,21 @@ namespace biblioteca.Views
             }
         }
 
+        private void UserItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is not ListViewItem item)
+                return;
+
+            if (item.DataContext is not Models.User selectedUser)
+                return;
+
+            if (DataContext is UserListViewModel viewModel)
+            {
+                var detailsWindow = new UserDetails(selectedUser, viewModel.DeleteUser, viewModel.UpdateUser);
+                detailsWindow.ShowDialog();
+            }
+        }
+
         private void usersListViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {
             GridViewColumnHeader column = (sender as GridViewColumnHeader);

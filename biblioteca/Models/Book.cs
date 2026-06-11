@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biblioteca.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -17,6 +18,11 @@ namespace biblioteca.Models
         private bool _isAvailable = true;
 
         public int Id { get; set; }
+
+        public virtual List<Loan> Loans { get; set; } = new();
+
+        public string CoverImagePath =>
+            ImagePathHelper.GetCoverPath(Signature);
 
         public string Title
         {

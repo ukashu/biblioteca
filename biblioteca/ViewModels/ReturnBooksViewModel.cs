@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using biblioteca.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace biblioteca.ViewModels
 {
@@ -82,14 +83,15 @@ public string IsbnFilter
 {
     var loans = _context.Loans
         .Where(l => l.ReturnDate == null)
+        .Include(l => l.Book)
         .ToList();
 
     // filtrowanie po użytkowniku
     if (!string.IsNullOrWhiteSpace(UserFilter))
     {
         loans = loans
-            .Where(l => l.UserName != null &&
-                        l.UserName.ToLower().Contains(UserFilter.ToLower()))
+            .Where(l => l.User.LastName != null &&
+                        l.User.LastName.ToLower().Contains(UserFilter.ToLower()))
             .ToList();
     }
 
@@ -98,14 +100,10 @@ public string IsbnFilter
     {
         loans = loans
             .Where(l =>
-            {
-                var book = _context.Books
-                    .FirstOrDefault(b => b.Title == l.BookTitle);
-
-                return book != null &&
-                       book.Signature != null &&
-                       book.Signature.ToLower().Contains(IsbnFilter.ToLower());
-            })
+                l.Book != null &&
+                l.Book.Signature != null &&
+                l.Book.Signature.ToLower().Contains(IsbnFilter.ToLower())
+            )
             .ToList();
     }
 
@@ -118,7 +116,7 @@ public string IsbnFilter
 
         SelectedLoan.ReturnDate = DateTime.Now;
 
-        var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.BookTitle);
+        var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.Book.Title);
         if (book != null)
         {
             book.IsAvailable = true;
