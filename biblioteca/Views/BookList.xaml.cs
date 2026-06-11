@@ -35,9 +35,9 @@ namespace biblioteca.Views
         private void BooksList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender is ListView booksList &&
-                booksList.SelectedItem is biblioteca.Models.BookListItem item)
+                booksList.SelectedItem is biblioteca.Models.Book item)
             {
-                var selectedBook = item.Book;
+                var selectedBook = item;
 
                 if (DataContext is BookListViewModel viewModel)
                 {
@@ -110,7 +110,7 @@ namespace biblioteca.Views
 
             _booksView.Filter = item =>
             {
-                if (item is not biblioteca.Models.BookListItem book)
+                if (item is not biblioteca.Models.Book book)
                     return false;
 
                 if (!string.IsNullOrWhiteSpace(TitleFilterTextBox.Text) &&

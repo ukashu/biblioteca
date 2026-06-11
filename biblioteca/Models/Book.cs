@@ -24,6 +24,9 @@ namespace biblioteca.Models
         public string CoverImagePath =>
             ImagePathHelper.GetCoverPath(Signature);
 
+        public bool IsOverdue =>
+           Loans.Any(l => l.ReturnDate == null && l.BorrowDate < DateTime.Now - TimeSpan.FromDays(30));
+
         public string Title
         {
             get => _title;

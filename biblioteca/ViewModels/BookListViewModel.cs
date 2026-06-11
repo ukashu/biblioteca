@@ -21,7 +21,7 @@ namespace biblioteca.ViewModels
     {
         public string Title => "Books";
 
-        public ObservableCollection<BookListItem> Books { get; set; }
+        public ObservableCollection<Book> Books { get; set; }
 
         public RelayCommand AddBookCommand => new RelayCommand(execute => AddBook());
         public RelayCommand AddBookWithDialogCommand => new RelayCommand(execute => AddBookWithDialog());
@@ -98,11 +98,7 @@ namespace biblioteca.ViewModels
                 db.Books.Add(newBook);
                 db.SaveChanges();
 
-                Books.Add(new BookListItem
-                {
-                    Book = newBook,
-                    BorrowDate = null
-                });
+                Books.Add(newBook);
             }
         }
 

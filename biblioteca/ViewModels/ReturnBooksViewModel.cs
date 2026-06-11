@@ -112,16 +112,14 @@ public string IsbnFilter
         {
             loan.ReturnDate = DateTime.Now;
 
-            var book = _context.Books
-                .FirstOrDefault(b => b.Title == loan.BookTitle);
+            var book = _context.Books.FirstOrDefault(b => b.Title == loan.Book.Title);
 
-        var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.Book.Title);
-        if (book != null)
-        {
-            book.IsAvailable = true;
-        }
+            if (book != null)
+            {
+                book.IsAvailable = true;
+            }
 
-            returnedBooks.Add(loan.BookTitle);
+            returnedBooks.Add(book.Title);
         }
 
         _context.SaveChanges();
