@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -16,6 +17,13 @@ namespace biblioteca
             db.Database.EnsureCreated();
 
             base.OnStartup(e);
+
+            var folder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "biblioteca",
+                "Covers");
+
+            Directory.CreateDirectory(folder);
         }
     }
 }
