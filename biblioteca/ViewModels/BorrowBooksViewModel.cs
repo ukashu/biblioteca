@@ -107,74 +107,88 @@ namespace biblioteca.ViewModels
             var signature = InputValue.Trim();
             if (signature.Length == 0) return;
 
-            using var db = new Data.LibraryContext();
-            var signatureLower = signature.ToLower();
-            var book = db.Books.FirstOrDefault(b => b.Signature.ToLower() == signatureLower);
-            if (book == null)
+            try
             {
-                MessageBox.Show("Failure");
-                return;
-            }
+                using var db = new Data.LibraryContext();
+                var signatureLower = signature.ToLower();
+                var book = db.Books.FirstOrDefault(b => b.Signature.ToLower() == signatureLower);
+                if (book == null)
+                {
+                    MessageBox.Show($"Nie znaleziono książki o sygnaturze/ISBN: {signature}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            if (BooksToBorrow.Any(b => b.Signature.ToLower() == signatureLower))
-            {
+                if (BooksToBorrow.Any(b => b.Signature.ToLower() == signatureLower))
+                {
+                    InputValue = string.Empty;
+                    SelectedSuggestion = null;
+                    return;
+                }
+
+                BooksToBorrow.Add(new BorrowItem { Signature = book.Signature, Title = book.Title });
                 InputValue = string.Empty;
-                SelectedSuggestion = null;
-                return;
             }
-
-            BooksToBorrow.Add(new BorrowItem { Signature = book.Signature, Title = book.Title });
-            InputValue = string.Empty;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas dodawania książki: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void BorrowBooks()
         {
-            using var db = new Data.LibraryContext();
-            using var tx = db.Database.BeginTransaction();
-
             try
             {
-                var userInDb = db.Users.FirstOrDefault(u => u.Id == _user.Id);
-                if (userInDb == null)
-                {
-                    MessageBox.Show("Failure");
-                    return;
-                }
+                using var db = new Data.LibraryContext();
+                using var tx = db.Database.BeginTransaction();
 
-                foreach (var item in BooksToBorrow)
+                try
                 {
-                    var signature = item.Signature;
-                    var book = db.Books.FirstOrDefault(b => b.Signature.ToLower() == signature.ToLower());
-                    if (book == null || !book.IsAvailable)
+                    var userInDb = db.Users.FirstOrDefault(u => u.Id == _user.Id);
+                    if (userInDb == null)
                     {
-                        tx.Rollback();
-                        MessageBox.Show("Failure");
+                        MessageBox.Show("Nie znaleziono użytkownika w bazie.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
-                    book.IsAvailable = false;
-
-                    db.Loans.Add(new Loan
+                    foreach (var item in BooksToBorrow)
                     {
-                        BookTitle = book.Title,
-                        UserName = $"{userInDb.FirstName} {userInDb.LastName}",
-                        BorrowDate = DateTime.Now,
-                        ReturnDate = null
-                    });
+                        var signature = item.Signature;
+                        var book = db.Books.FirstOrDefault(b => b.Signature.ToLower() == signature.ToLower());
+                        if (book == null || !book.IsAvailable)
+                        {
+                            tx.Rollback();
+                            MessageBox.Show($"Książka {item.Title} ({signature}) jest niedostępna lub nie istnieje.", "Błąd wypożyczania", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+
+                        book.IsAvailable = false;
+
+                        db.Loans.Add(new Loan
+                        {
+                            BookTitle = book.Title,
+                            UserName = $"{userInDb.FirstName} {userInDb.LastName}",
+                            BorrowDate = DateTime.Now,
+                            ReturnDate = null
+                        });
+                    }
+
+                    db.SaveChanges();
+                    tx.Commit();
+
+                    EventBus.NotifyNewLoan();
+
+                    MessageBox.Show("Wypożyczono książki pomyślnie.", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                    BooksToBorrow.Clear();
                 }
-
-                db.SaveChanges();
-                tx.Commit();
-
-                EventBus.NotifyNewLoan();
-
-                MessageBox.Show("Success");
-                BooksToBorrow.Clear();
+                catch (Exception ex)
+                {
+                    try { tx.Rollback(); } catch { }
+                    MessageBox.Show($"Wystąpił błąd podczas wypożyczania: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                try { tx.Rollback(); } catch { }
-                MessageBox.Show("Failure");
+                MessageBox.Show($"Błąd połączenia z bazą danych: {ex.Message}", "Błąd krytyczny", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -189,34 +203,42 @@ namespace biblioteca.ViewModels
                 return;
             }
 
-            using var db = new Data.LibraryContext();
-
-            // Match either by title or by signature (ISBN/sygnatura) and only show available books.
-            var like = $"%{q}%";
-            var qStripped = q.Replace("-", "").Replace(" ", "");
-            var likeStripped = $"%{qStripped}%";
-
-            var matches = db.Books
-                .Where(b =>
-                    b.IsAvailable &&
-                    (
-                        EF.Functions.Like(b.Title, like) ||
-                        EF.Functions.Like(b.Signature, like) ||
-                        EF.Functions.Like(b.Signature.Replace("-", "").Replace(" ", ""), likeStripped)
-                    ))
-                .OrderBy(b => b.Title)
-                .Take(8)
-                .Select(b => new BookSuggestion
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Signature = b.Signature
-                })
-                .ToList();
-
-            foreach (var m in matches)
+            try
             {
-                Suggestions.Add(m);
+                using var db = new Data.LibraryContext();
+
+                // Match either by title or by signature (ISBN/sygnatura) and only show available books.
+                var like = $"%{q}%";
+                var qStripped = q.Replace("-", "").Replace(" ", "");
+                var likeStripped = $"%{qStripped}%";
+
+                var matches = db.Books
+                    .Where(b =>
+                        b.IsAvailable &&
+                        (
+                            EF.Functions.Like(b.Title, like) ||
+                            EF.Functions.Like(b.Signature, like) ||
+                            EF.Functions.Like(b.Signature.Replace("-", "").Replace(" ", ""), likeStripped)
+                        ))
+                    .OrderBy(b => b.Title)
+                    .Take(8)
+                    .Select(b => new BookSuggestion
+                    {
+                        Id = b.Id,
+                        Title = b.Title,
+                        Signature = b.Signature
+                    })
+                    .ToList();
+
+                foreach (var m in matches)
+                {
+                    Suggestions.Add(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Optionally log error, but probably shouldn't show a messagebox on every key press
+                System.Diagnostics.Debug.WriteLine($"Error fetching suggestions: {ex.Message}");
             }
 
             OnPropertyChanged(nameof(HasSuggestions));

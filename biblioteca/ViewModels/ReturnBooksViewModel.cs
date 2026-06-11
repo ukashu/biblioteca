@@ -80,55 +80,69 @@ public string IsbnFilter
 
  public void LoadLoans()
 {
-    var loans = _context.Loans
-        .Where(l => l.ReturnDate == null)
-        .ToList();
-
-    // filtrowanie po użytkowniku
-    if (!string.IsNullOrWhiteSpace(UserFilter))
+    try
     {
-        loans = loans
-            .Where(l => l.UserName != null &&
-                        l.UserName.ToLower().Contains(UserFilter.ToLower()))
+        var loans = _context.Loans
+            .Where(l => l.ReturnDate == null)
             .ToList();
-    }
 
-    // filtrowanie po ISBN (Signature)
-    if (!string.IsNullOrWhiteSpace(IsbnFilter))
+        // filtrowanie po użytkowniku
+        if (!string.IsNullOrWhiteSpace(UserFilter))
+        {
+            loans = loans
+                .Where(l => l.UserName != null &&
+                            l.UserName.ToLower().Contains(UserFilter.ToLower()))
+                .ToList();
+        }
+
+        // filtrowanie po ISBN (Signature)
+        if (!string.IsNullOrWhiteSpace(IsbnFilter))
+        {
+            loans = loans
+                .Where(l =>
+                {
+                    var book = _context.Books
+                        .FirstOrDefault(b => b.Title == l.BookTitle);
+
+                    return book != null &&
+                           book.Signature != null &&
+                           book.Signature.ToLower().Contains(IsbnFilter.ToLower());
+                })
+                .ToList();
+        }
+
+        Loans = new ObservableCollection<Loan>(loans);
+    }
+    catch (Exception ex)
     {
-        loans = loans
-            .Where(l =>
-            {
-                var book = _context.Books
-                    .FirstOrDefault(b => b.Title == l.BookTitle);
-
-                return book != null &&
-                       book.Signature != null &&
-                       book.Signature.ToLower().Contains(IsbnFilter.ToLower());
-            })
-            .ToList();
+        MessageBox.Show($"Błąd podczas ładowania wypożyczeń: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
     }
-
-    Loans = new ObservableCollection<Loan>(loans);
 }
 
     private void ReturnBook()
     {
         if (SelectedLoan == null) return;
 
-        SelectedLoan.ReturnDate = DateTime.Now;
-
-        var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.BookTitle);
-        if (book != null)
+        try
         {
-            book.IsAvailable = true;
+            SelectedLoan.ReturnDate = DateTime.Now;
+
+            var book = _context.Books.FirstOrDefault(b => b.Title == SelectedLoan.BookTitle);
+            if (book != null)
+            {
+                book.IsAvailable = true;
+            }
+
+            _context.SaveChanges();
+
+            MessageBox.Show("Książka została zwrócona!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            LoadLoans(); 
         }
-
-        _context.SaveChanges();
-
-        MessageBox.Show("Książka została zwrócona!");
-
-        LoadLoans(); 
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Błąd podczas zwrotu książki: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

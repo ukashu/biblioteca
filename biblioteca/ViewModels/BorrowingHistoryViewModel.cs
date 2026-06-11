@@ -12,22 +12,30 @@ namespace biblioteca.ViewModels
 
         public BorrowingHistoryViewModel()
         {
-            using var db = new Data.LibraryContext();
-
-            if (!db.Loans.Any())
+            Loans = new ObservableCollection<Loan>();
+            try
             {
-                db.Loans.Add(new Loan
+                using var db = new Data.LibraryContext();
+
+                if (!db.Loans.Any())
                 {
-                    BookTitle = "1984",
-                    UserName = "Test User",
-                    BorrowDate = DateTime.Now
-                });
+                    db.Loans.Add(new Loan
+                    {
+                        BookTitle = "1984",
+                        UserName = "Test User",
+                        BorrowDate = DateTime.Now
+                    });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+                }
+
+                var loansFromDb = db.Loans.ToList();
+                Loans = new ObservableCollection<Loan>(loansFromDb);
             }
-
-            var loansFromDb = db.Loans.ToList();
-            Loans = new ObservableCollection<Loan>(loansFromDb);
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Błąd podczas wczytywania historii wypożyczeń: {ex.Message}", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
     }
 }
