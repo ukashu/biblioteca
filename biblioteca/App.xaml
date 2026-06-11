@@ -4,23 +4,29 @@
              xmlns:local="clr-namespace:biblioteca"
              xmlns:views="clr-namespace:biblioteca.Views"
              xmlns:viewModels="clr-namespace:biblioteca.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewModels:BookListViewModel}">
-            <views:BookList/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:UserListViewModel}">
-            <views:UserList/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:ReturnBooksViewModel}">
-            <views:ReturnBooks/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:BorrowingHistoryViewModel}">
-            <views:BorrowingHistory/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:ScanBooksViewModel}">
-            <views:ScanBooks/>
-        </DataTemplate>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewModels:BookListViewModel}">
+                <views:BookList/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UserListViewModel}">
+                <views:UserList/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ReturnBooksViewModel}">
+                <views:ReturnBooks/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:BorrowingHistoryViewModel}">
+                <views:BorrowingHistory/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ScanBooksViewModel}">
+                <views:ScanBooks/>
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
