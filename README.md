@@ -76,19 +76,22 @@
 - [ ] BUGFIX: ISBN powinno być unikatowe
 - [x] BUGFIX: Book Details visual bug
 - [x] wyświetl okładkę w Book Details
+- [ ] BUGFIX: Borrow Date nie wyświetla się
+- [ ] Całą apkę przerobić na angielski/polski
+- [ ] BUGFIX: ucina kolumny w BookList przy domyślnym rozmiarze okna i przy resizowaniu
 ### Ola
-- [ ] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
+- [x] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
 	- np. wprowadzany przy tworzeniu książki ISBN powinien składać się tylko z określonych znaków
-- [ ] dodać wyświetlanie odpowiednich komunikatów jeżeli input nie spełnia walidacji
-- [ ] zidentyfikować miejsca gdzie jest potrzebny error handling i go dodać
-- [ ] zmienić wygląd UI na bardziej "customowy" poprzez dodanie stylizowania elementów itp.
+- [x] dodać wyświetlanie odpowiednich komunikatów jeżeli input nie spełnia walidacji
+- [x] zidentyfikować miejsca gdzie jest potrzebny error handling i go dodać
+- [x] zmienić wygląd UI na bardziej "customowy" poprzez dodanie stylizowania elementów itp.
 ### Wiktoria
-- [ ] dodać możliwość zwracania kilku książek na raz (poprzez zaznaczenie kilku)
+- [x] dodać możliwość zwracania kilku książek na raz (poprzez zaznaczenie kilku)
 	- wylistować zwrócone książki w Success Dialog
-- [ ] zmiany w BookList
-	- [ ] dodać kolumnę z datą wypożyczenia
-	- [ ] podświetlać na czerwono książki z datą wypożyczenia >30 dni przed dzisiaj
-	- [ ] dodać kontrolkę po kliknięciu której widać tylko książki z datą wypożyczenia >30 przed dzisiaj
+- [x] zmiany w BookList
+	- [x] dodać kolumnę z datą wypożyczenia
+	- [x] podświetlać na czerwono książki z datą wypożyczenia >30 dni przed dzisiaj
+	- [x] dodać kontrolkę po kliknięciu której widać tylko książki z datą wypożyczenia >30 przed dzisiaj
 ### Natalia
 - [ ] połączenie funkcjonalności Scan Books z bazą danych
 	- zakładkaScan Books działa jak poprzednia implementacja Return Books
