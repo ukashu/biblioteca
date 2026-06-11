@@ -2,34 +2,27 @@
 using biblioteca.ViewModels;
 using Castle.DynamicProxy.Generators;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Documents;
+
 
 namespace biblioteca.Views
 {
-    /// <summary>
-    /// Interaction logic for BookList.xaml
-    /// </summary>
     public partial class BookList : UserControl
     {
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
 
         public ICollectionView _booksView;
+
         public BookList()
         {
             InitializeComponent();
-            DataContext = new ViewModels.BookListViewModel();
+            DataContext = new BookListViewModel();
 
             Loaded += BookList_Loaded;
         }
@@ -41,11 +34,19 @@ namespace biblioteca.Views
 
         private void BooksList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (sender is ListView booksList && booksList.SelectedItem is Models.Book selectedBook)
+            if (sender is ListView booksList &&
+                booksList.SelectedItem is biblioteca.Models.BookListItem item)
             {
+                var selectedBook = item.Book;
+
                 if (DataContext is BookListViewModel viewModel)
                 {
-                    var detailsWindow = new BookDetails(selectedBook, viewModel.DeleteBook, viewModel.UpdateBook);
+                    var detailsWindow =
+                        new BookDetails(
+                            selectedBook,
+                            viewModel.DeleteBook,
+                            viewModel.UpdateBook);
+
                     detailsWindow.ShowDialog();
                 }
             }
@@ -67,75 +68,105 @@ namespace biblioteca.Views
 
         private void booksListViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {
-            GridViewColumnHeader column = (sender as GridViewColumnHeader);
+            GridViewColumnHeader column = sender as GridViewColumnHeader;
+
+            if (column?.Tag == null)
+                return;
+
             string sortBy = column.Tag.ToString();
+
             if (listViewSortCol != null)
             {
-                AdornerLayer.GetAdornerLayer(listViewSortCol).Remove(listViewSortAdorner);
-                CollectionViewSource.GetDefaultView(booksListView.ItemsSource).SortDescriptions.Clear();
+                AdornerLayer.GetAdornerLayer(listViewSortCol)
+                    .Remove(listViewSortAdorner);
+
+                CollectionViewSource.GetDefaultView(booksListView.ItemsSource)
+                    .SortDescriptions.Clear();
             }
 
             ListSortDirection newDir = ListSortDirection.Ascending;
-            if(listViewSortCol == column && listViewSortAdorner.Direction == newDir)
+
+            if (listViewSortCol == column &&
+                listViewSortAdorner.Direction == newDir)
             {
                 newDir = ListSortDirection.Descending;
             }
 
             listViewSortCol = column;
             listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
-            AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
-            CollectionViewSource.GetDefaultView(booksListView.ItemsSource).SortDescriptions.Add(new SortDescription(sortBy, newDir));
+
+            AdornerLayer.GetAdornerLayer(listViewSortCol)
+                .Add(listViewSortAdorner);
+
+            CollectionViewSource.GetDefaultView(booksListView.ItemsSource)
+                .SortDescriptions.Add(
+                    new SortDescription(sortBy, newDir));
         }
+
+        private void ApplyFilters()
+        {
+            if (_booksView == null)
+                return;
+
+            _booksView.Filter = item =>
+            {
+                if (item is not biblioteca.Models.BookListItem book)
+                    return false;
+
+                if (!string.IsNullOrWhiteSpace(TitleFilterTextBox.Text) &&
+                    !book.Title.Contains(
+                        TitleFilterTextBox.Text,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+
+                if (!string.IsNullOrWhiteSpace(AuthorFilterTextBox.Text) &&
+                    !book.Author.Contains(
+                        AuthorFilterTextBox.Text,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+
+                if (!string.IsNullOrWhiteSpace(SignatureFilterTextBox.Text) &&
+                    !book.Signature.Contains(
+                        SignatureFilterTextBox.Text,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+
+                if (OverdueOnlyCheckBox.IsChecked == true &&
+                    !book.IsOverdue)
+                {
+                    return false;
+                }
+
+                return true;
+            };
+
+            _booksView.Refresh();
+        }
+
         private void TitleFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_booksView == null) return;
-
-            _booksView.Filter = item =>
-            {
-                if (item is not Models.Book book) return false;
-
-                string filter = TitleFilterTextBox.Text;
-
-                if (string.IsNullOrWhiteSpace(filter)) return true;
-
-                return book.Title.Contains(filter, StringComparison.OrdinalIgnoreCase);
-            };
-
-            _booksView.Refresh();
+            ApplyFilters();
         }
+
         private void AuthorFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_booksView == null) return;
-
-            _booksView.Filter = item =>
-            {
-                if (item is not Models.Book book) return false;
-                string filter = AuthorFilterTextBox.Text;
-
-                if (string.IsNullOrWhiteSpace(filter)) return true;
-
-                return book.Author.Contains(filter, StringComparison.OrdinalIgnoreCase);
-            };
-
-            _booksView.Refresh();
+            ApplyFilters();
         }
 
         private void SignatureFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_booksView == null) return;
+            ApplyFilters();
+        }
 
-            _booksView.Filter = item =>
-            {
-                if (item is not Models.Book book) return false;
-
-                string filter = SignatureFilterTextBox.Text;
-
-                if (string.IsNullOrWhiteSpace(filter)) return true;
-
-                return book.Signature.Contains(filter, StringComparison.OrdinalIgnoreCase);
-            };
-
-            _booksView.Refresh();
+        private void OverdueOnlyCheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            ApplyFilters();
         }
     }
 }
