@@ -41,7 +41,11 @@
                                 <GridViewColumnHeader Tag="Author" Click="booksListViewColumnHeader_Click">Author</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                       <GridViewColumn Header="Borrow Date" DisplayMemberBinding="{Binding BorrowDate}" Width="140"/>
+                        <GridViewColumn Header="Borrow Date" Width="140">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="CurrentBorrowDate" StringFormat="dd.MM.yyyy"/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding PublicationYear}" Width="Auto">
                             <GridViewColumn.Header>
                                 <GridViewColumnHeader Tag="PublicationYear" Click="booksListViewColumnHeader_Click">Year</GridViewColumnHeader>

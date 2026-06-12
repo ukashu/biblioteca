@@ -76,7 +76,7 @@
 - [x] User Card powinien być unikatowy
 - [x] BUGFIX: Book Details visual bug
 - [x] wyświetl okładkę w Book Details
-- [ ] BUGFIX: Borrow Date nie wyświetla się
+- [x] BUGFIX: Borrow Date nie wyświetla się
 - [ ] Całą apkę przerobić na angielski/polski
 - [ ] BUGFIX: ucina kolumny w BookList przy domyślnym rozmiarze okna i przy resizowaniu
 ### Ola
