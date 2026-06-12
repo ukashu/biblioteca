@@ -94,9 +94,18 @@ namespace biblioteca.ViewModels
             {
                 var newBook = addBookWindow.CreatedBook;
 
+                using var db = new LibraryContext();
+
+                bool alreadyExists = db.Books.Any(b => b.Signature == newBook.Signature);
+
+                if (alreadyExists)
+                {
+                    MessageBox.Show("Książka o takiej sygnaturze już istnieje.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 try
                 {
-                    using var db = new LibraryContext();
                     db.Books.Add(newBook);
                     db.SaveChanges();
 
