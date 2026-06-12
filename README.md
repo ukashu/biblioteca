@@ -78,7 +78,7 @@
 - [x] wyświetl okładkę w Book Details
 - [x] BUGFIX: Borrow Date nie wyświetla się
 - [ ] Całą apkę przerobić na angielski/polski
-- [ ] BUGFIX: ucina kolumny w BookList przy domyślnym rozmiarze okna i przy resizowaniu
+- [x] BUGFIX: ucina kolumny w BookList przy domyślnym rozmiarze okna i przy resizowaniu
 ### Ola
 - [x] zidentyfikować miejsca gdzie potrzebna jest walidacja i ją dodać
 	- np. wprowadzany przy tworzeniu książki ISBN powinien składać się tylko z określonych znaków

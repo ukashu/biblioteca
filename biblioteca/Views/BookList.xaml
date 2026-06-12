@@ -31,12 +31,12 @@
                 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Width="280">
+                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Width="220">
                             <GridViewColumn.Header>
                                 <GridViewColumnHeader Tag="Title" Click="booksListViewColumnHeader_Click">Title</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Width="200">
+                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Width="160">
                             <GridViewColumn.Header>
                                 <GridViewColumnHeader Tag="Author" Click="booksListViewColumnHeader_Click">Author</GridViewColumnHeader>
                             </GridViewColumn.Header>
