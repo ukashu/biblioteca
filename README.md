@@ -68,7 +68,7 @@
 - [x] naprawić relację encji
 - [x] wyświetlanie liczby wypożyczonych książek w informacjach o użytkowniku
 - [x] wyświetlanie użytkownika który wypożyczył książkę w informacjach o książce
-- [ ] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
+- [x] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
 - [x] refaktor okien details/edit
 - [x] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
 - [x] wyświetlanie okładek książek z URL

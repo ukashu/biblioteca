@@ -21,6 +21,11 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="UserItem_MouseDoubleClick"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasOverdueBooks}" Value="True">
+                                <Setter Property="Background" Value="LightCoral"/>
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
                 

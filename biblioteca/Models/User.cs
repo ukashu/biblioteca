@@ -17,6 +17,8 @@ namespace biblioteca.Models
 
         public int Id { get; set; }
 
+        public bool HasOverdueBooks => Loans.Any(l => l.ReturnDate == null && l.BorrowDate < DateTime.Now - TimeSpan.FromDays(30));
+
         public string FirstName
         {
             get => _firstName;
