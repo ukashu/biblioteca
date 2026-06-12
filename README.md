@@ -77,7 +77,7 @@
 - [x] BUGFIX: Book Details visual bug
 - [x] wyświetl okładkę w Book Details
 - [x] BUGFIX: Borrow Date nie wyświetla się
-- [ ] Całą apkę przerobić na angielski/polski
+- [x] Całą apkę przerobić na angielski/polski
 - [x] BUGFIX: ucina kolumny w BookList przy domyślnym rozmiarze okna i przy resizowaniu
 - [x] wyświetlać CardId w oknie Zwracania książek
 ### Ola

@@ -7,7 +7,7 @@ namespace biblioteca.ViewModels
 {
     internal class BorrowingHistoryViewModel
     {
-        public string Title => "Borrowing History";
+        public string Title => "Historia wypożyczeń";
 
         public ObservableCollection<Loan> Loans { get; set; }
 

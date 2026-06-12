@@ -40,7 +40,7 @@ public string IsbnFilter
     }
 }
 
-    public string Title => "Return Books";
+    public string Title => "Zwróć książki";
 
     private ObservableCollection<Loan> _loans;
     public ObservableCollection<Loan> Loans

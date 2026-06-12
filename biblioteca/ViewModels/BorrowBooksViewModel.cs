@@ -31,7 +31,7 @@ namespace biblioteca.ViewModels
         private BookSuggestion? _selectedSuggestion;
         private bool _suppressSuggestionRefresh;
 
-        public string Header => $"Borrow books for: {_user.FirstName} {_user.LastName}";
+        public string Header => $"Wypożycz książki dla: {_user.FirstName} {_user.LastName}";
 
         public bool HasSuggestions => Suggestions.Any();
 
@@ -237,8 +237,7 @@ namespace biblioteca.ViewModels
             }
             catch (Exception ex)
             {
-                // Optionally log error, but probably shouldn't show a messagebox on every key press
-                System.Diagnostics.Debug.WriteLine($"Error fetching suggestions: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Błąd wczytywania sugestii: {ex.Message}");
             }
 
             OnPropertyChanged(nameof(HasSuggestions));

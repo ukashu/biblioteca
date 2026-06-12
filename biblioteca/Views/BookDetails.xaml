@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:biblioteca.Views"
         mc:Ignorable="d"
-        Title="BookDetails" Height="450" Width="800" MinWidth="400" MinHeight="350">
+        Title="Szczegóły książki" Height="450" Width="800" MinWidth="400" MinHeight="350">
     <Grid>
         <Grid Margin="10" x:Name="ViewDetailsPanel">
             <Grid.RowDefinitions>
@@ -23,27 +23,27 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title -->
-            <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Tytuł" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="TitleText" Text="{Binding Title}" Grid.Row="0" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
             <!-- Author -->
-            <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Autor" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="AuthorText" Text="{Binding Author}" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
             <!-- Publication Year -->
-            <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Rok publikacji" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="PublicationYearText" Text="{Binding PublicationYear}" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
             <!-- Genre -->
-            <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Gatunek" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="GenreText" Text="{Binding Genre}" Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
             <!-- Signature -->
-            <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="ISBN" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="SignatureText" Text="{Binding Signature}" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
             <!-- Description -->
-            <Label Content="Description" Grid.Row="5" Grid.Column="0"/>
+            <Label Content="Opis" Grid.Row="5" Grid.Column="0"/>
             <TextBlock x:Name="DescriptionText"
                    Text="{Binding Description}"
                    Grid.Row="5"
@@ -52,7 +52,7 @@
                    TextWrapping="Wrap"/>
 
             <!-- Is Available -->
-            <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Dostępna" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="IsAvailableText" Text="{Binding IsAvailable}" Grid.Row="6" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
 
             <!-- Buttons -->
@@ -61,8 +61,8 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,15,0,0">
-                <Button x:Name="DeleteButton" Content="Delete" Width="80" Margin="5" Click="DeleteButton_Click"/>
-                <Button x:Name="EditButton" Content="Edit" Width="80" Margin="5" Click="EditButton_Click"/>
+                <Button x:Name="DeleteButton" Content="Usuń" Width="80" Margin="5" Click="DeleteButton_Click"/>
+                <Button x:Name="EditButton" Content="Edytuj" Width="80" Margin="5" Click="EditButton_Click"/>
             </StackPanel>
         </Grid>
         <Grid Margin="10" x:Name="EditDetailsPanel" Visibility="Collapsed">
@@ -81,27 +81,27 @@
             </Grid.ColumnDefinitions>
 
             <!-- Title -->
-            <Label Content="Title" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Tytuł" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBox x:Name="TitleBox" Grid.Row="0" Grid.Column="1" Margin="5" />
 
             <!-- Author -->
-            <Label Content="Author" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Autor" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBox x:Name="AuthorBox" Grid.Row="1" Grid.Column="1" Margin="5" />
 
             <!-- Publication Year -->
-            <Label Content="Publication Year" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Rok publikacji" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBox x:Name="PublicationYearBox" Grid.Row="2" Grid.Column="1" Margin="5" />
 
             <!-- Genre -->
-            <Label Content="Genre" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Gatunek" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBox x:Name="GenreBox" Grid.Row="3" Grid.Column="1" Margin="5" />
 
             <!-- Signature -->
-            <Label Content="Signature" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="ISBN" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBox x:Name="SignatureBox" Grid.Row="4" Grid.Column="1" Margin="5" />
 
             <!-- Description -->
-            <Label Content="Description" Grid.Row="5" Grid.Column="0"/>
+            <Label Content="Opis" Grid.Row="5" Grid.Column="0"/>
             <TextBox x:Name="DescriptionBox"
                  Grid.Row="5"
                  Grid.Column="1"
@@ -113,7 +113,7 @@
                  />
 
             <!-- Is Available -->
-            <Label Content="Is Available" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
+            <Label Content="Dostępna" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
             <CheckBox x:Name="IsAvailableBox" Grid.Row="6" Grid.Column="1" Margin="5" />
 
             <!-- Buttons -->
@@ -122,8 +122,8 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,15,0,0">
-                <Button x:Name="SaveButton" Content="Save" Width="80" Margin="5" Click="SaveButton_Click"/>
-                <Button x:Name="CancelButton" Content="Cancel" Width="80" Margin="5" Click="CancelButton_Click" />
+                <Button x:Name="SaveButton" Content="Zapisz" Width="80" Margin="5" Click="SaveButton_Click"/>
+                <Button x:Name="CancelButton" Content="Anuluj" Width="80" Margin="5" Click="CancelButton_Click" />
             </StackPanel>
         </Grid>
     </Grid>

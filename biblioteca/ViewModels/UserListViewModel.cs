@@ -12,7 +12,7 @@ namespace biblioteca.ViewModels
 {
     public class UserListViewModel : INotifyPropertyChanged
     {
-        public string Title => "Users";
+        public string Title => "Czytelnicy";
 
         public ObservableCollection<User> Users { get; } = new();
 

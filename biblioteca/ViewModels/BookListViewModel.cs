@@ -19,7 +19,7 @@ namespace biblioteca.ViewModels
 {
     public class BookListViewModel : INotifyPropertyChanged
     {
-        public string Title => "Books";
+        public string Title => "Książki";
 
         public ObservableCollection<Book> Books { get; set; }
 
@@ -54,7 +54,7 @@ namespace biblioteca.ViewModels
                     .FirstOrDefault(l => l.ReturnDate == null);
 
                 if (loan?.User == null)
-                    return "Available";
+                    return "Dostępna";
 
                 return loan.UserFullName;
             }

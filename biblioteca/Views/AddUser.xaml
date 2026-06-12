@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:biblioteca.Views"
         mc:Ignorable="d"
-        Title="AddUser" Height="450" Width="800" MinWidth="400" MinHeight="350">
+        Title="Dodaj użytkownika" Height="450" Width="800" MinWidth="400" MinHeight="350">
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -36,7 +36,7 @@
         <TextBlock Text="Telefon" Grid.Row="3"/>
         <TextBox x:Name="PhoneBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10"/>
 
-        <TextBlock Text="Nr karty" Grid.Row="4"/>
+        <TextBlock Text="Nr karty czytelnika" Grid.Row="4"/>
         <TextBox x:Name="CardNumberBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10"/>
 
         <TextBlock Text="Notatki" Grid.Row="5"/>
@@ -44,7 +44,7 @@
 
         <TextBlock x:Name="ErrorTextBlock" Grid.Row="6" Grid.ColumnSpan="2" Foreground="Red" Margin="0,0,0,10" TextWrapping="Wrap"/>
 
-        <Button Content="Dodaj użytkownika"
+        <Button Content="Dodaj czytelnika"
                 Grid.Row="7"
                 Grid.ColumnSpan="2"
                 Margin="10,10,10,10"

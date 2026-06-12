@@ -9,7 +9,7 @@ namespace biblioteca.ViewModels
     {
         private string _inputValue;
 
-        public string Title => "Scan Books";
+        public string Title => "Skanuj ksiązki";
 
         public string InputValue
         {

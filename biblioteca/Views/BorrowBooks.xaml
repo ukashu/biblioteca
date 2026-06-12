@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Borrow books" Height="420" Width="640" MinWidth="400" MinHeight="300">
+        Title="Wypożycz książki" Height="420" Width="640" MinWidth="400" MinHeight="300">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
@@ -40,7 +40,7 @@
                          VerticalContentAlignment="Center"
                          Text="{Binding InputValue, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock Text="ISBN or signature"
+                <TextBlock Text="ISBN lub sygnatura"
                            Margin="5,0,0,0"
                            VerticalAlignment="Center"
                            Foreground="Gray"
@@ -72,7 +72,7 @@
             </Grid>
 
             <Button Grid.Column="1"
-                    Content="Add"
+                    Content="Dodaj"
                     Width="100"
                     Height="30"
                     Command="{Binding AddIsbnCommand}" />
@@ -84,7 +84,7 @@
         </ScrollViewer>
 
         <Button Grid.Row="3"
-                Content="Borrow"
+                Content="Wypożycz"
                 Width="120"
                 Height="35"
                 HorizontalAlignment="Right"

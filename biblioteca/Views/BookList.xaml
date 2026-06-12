@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:biblioteca.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -33,25 +33,25 @@
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Title}" Width="220">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Title" Click="booksListViewColumnHeader_Click">Title</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="Title" Click="booksListViewColumnHeader_Click">Tytuł</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Width="160">
+                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Width="140">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="Author" Click="booksListViewColumnHeader_Click">Author</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="Author" Click="booksListViewColumnHeader_Click">Autor</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn Header="Borrow Date" Width="140">
+                        <GridViewColumn Header="Wypożyczono" Width="160">
                             <GridViewColumn.DisplayMemberBinding>
                                 <Binding Path="CurrentBorrowDate" StringFormat="dd.MM.yyyy"/>
                             </GridViewColumn.DisplayMemberBinding>
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding PublicationYear}" Width="Auto">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="PublicationYear" Click="booksListViewColumnHeader_Click">Year</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="PublicationYear" Click="booksListViewColumnHeader_Click">Wydanie</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn Header="Available" DisplayMemberBinding="{Binding IsAvailable}" Width="Auto"/>
+                        <GridViewColumn Header="Dostępna" DisplayMemberBinding="{Binding IsAvailable}" Width="200"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -69,17 +69,17 @@
                 </Style>
             </Border.Style>
             <StackPanel DataContext="{Binding SelectedItem, ElementName=booksListView}">
-                <TextBlock Text="Book Details" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Text="Szczegóły" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
                 <Image Source="{Binding CoverImagePath}" Width="60" Height="100" Stretch="Uniform"/>
-                <TextBlock Text="Description: " FontWeight="Bold"/>
+                <TextBlock Text="Opis: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                <TextBlock Text="Genre: " FontWeight="Bold"/>
+                <TextBlock Text="Gatunek: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding Genre}" Margin="0,0,0,10"/>
                 <TextBlock Text="ISBN: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding Signature}" Margin="0,0,0,10"/>
-                <TextBlock Text="Year: " FontWeight="Bold"/>
+                <TextBlock Text="Wydanie: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding PublicationYear}" Margin="0,0,0,10"/>
-                <TextBlock Text="Borrowed by:" FontWeight="Bold"/>
+                <TextBlock Text="Wypożyczone przez:" FontWeight="Bold"/>
                 <TextBlock Text="{Binding DataContext.CurrentBorrower, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </StackPanel>
         </Border>
@@ -92,26 +92,26 @@
             
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="2">
                 <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Title" Margin="0,0,0,2"/>
+                    <TextBlock Text="Tytuł" Margin="0,0,0,2"/>
                     <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="TitleFilterTextBox" TextChanged="TitleFilterTextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Author" Margin="0,0,0,2"/>
+                    <TextBlock Text="Autor" Margin="0,0,0,2"/>
                     <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="AuthorFilterTextBox" TextChanged="AuthorFilterTextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Signature" Margin="0,0,0,2"/>
+                    <TextBlock Text="ISBN" Margin="0,0,0,2"/>
                     <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="SignatureFilterTextBox" TextChanged="SignatureFilterTextBox_TextChanged"/>
                 </StackPanel>
                 <CheckBox x:Name="OverdueOnlyCheckBox"
-                    Content="Tylko >30 dni"
+                    Content="Tylko przeterminowane"
                     Margin="10,22,0,0"
                     VerticalAlignment="Center"
                     Checked="OverdueOnlyCheckBox_Changed"
                     Unchecked="OverdueOnlyCheckBox_Changed"/>
             </StackPanel>
 
-            <Button Grid.Column="1" Name="add_book_button" Content="Add Book" HorizontalAlignment="Right" Command="{Binding AddBookWithDialogCommand}"/>
+            <Button Grid.Column="1" Name="add_book_button" Content="Dodaj" HorizontalAlignment="Right" Command="{Binding AddBookWithDialogCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

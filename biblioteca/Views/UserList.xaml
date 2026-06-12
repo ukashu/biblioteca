@@ -33,12 +33,12 @@
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Width="140">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="FirstName" Click="usersListViewColumnHeader_Click">First name</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="FirstName" Click="usersListViewColumnHeader_Click">Imię</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding LastName}" Width="140">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="LastName" Click="usersListViewColumnHeader_Click">Last name</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="LastName" Click="usersListViewColumnHeader_Click">Nazwisko</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Email}" Width="250">
@@ -48,13 +48,13 @@
                         </GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding IsActive}" Width="Auto">
                             <GridViewColumn.Header>
-                                <GridViewColumnHeader Tag="IsActive" Click="usersListViewColumnHeader_Click">Active</GridViewColumnHeader>
+                                <GridViewColumnHeader Tag="IsActive" Click="usersListViewColumnHeader_Click">Aktywny</GridViewColumnHeader>
                             </GridViewColumn.Header>
                         </GridViewColumn>
-                        <GridViewColumn Header="Borrow" Width="Auto">
+                        <GridViewColumn Header="" Width="Auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Borrow"
+                                    <Button Content="Wypożycz"
                                             Padding="8,2"
                                             Command="{Binding DataContext.BorrowBooksForUserCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding}" />
@@ -78,14 +78,14 @@
                 </Style>
             </Border.Style>
             <StackPanel DataContext="{Binding SelectedUser}">
-                <TextBlock Text="User Details" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
-                <TextBlock Text="Phone: " FontWeight="Bold"/>
+                <TextBlock Text="Szczegóły" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Text="Numer telefonu: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding PhoneNumber}" Margin="0,0,0,10"/>
-                <TextBlock Text="Card: " FontWeight="Bold"/>
+                <TextBlock Text="Numer karty czytelnika: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding CardNumber}" Margin="0,0,0,10"/>
-                <TextBlock Text="Notes: " FontWeight="Bold"/>
+                <TextBlock Text="Notatki: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                <TextBlock Text="Borrowed Books: " FontWeight="Bold"/>
+                <TextBlock Text="Wypożyczone książki: " FontWeight="Bold"/>
                 <TextBlock Text="{Binding BorrowedBooksCount}" TextWrapping="Wrap" Margin="0,0,0,10"/>
             </StackPanel>
         </Border>
@@ -98,11 +98,11 @@
             
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="2">
                 <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="First name" Margin="0,0,0,2"/>
+                    <TextBlock Text="Imię" Margin="0,0,0,2"/>
                     <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="FirstNameFilterTextBox" TextChanged="FirstNameFilterTextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Last name" Margin="0,0,0,2"/>
+                    <TextBlock Text="Nazwisko" Margin="0,0,0,2"/>
                     <TextBox Width="100" Height="30" VerticalContentAlignment="Center" Name="LastNameFilterTextBox" TextChanged="LastNameFilterTextBox_TextChanged"/>
                 </StackPanel>
                 <StackPanel Margin="0,0,10,0">
@@ -111,7 +111,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <Button Grid.Column="1" Name="add_user_button" Content="Add User" Command="{Binding AddUserWithDialogCommand}" />
+            <Button Grid.Column="1" Name="add_user_button" Content="Dodaj" Command="{Binding AddUserWithDialogCommand}" />
         </Grid>
     </Grid>
 </UserControl>
