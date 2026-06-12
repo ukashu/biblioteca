@@ -12,9 +12,9 @@ namespace biblioteca.Views
         private User _originalUser;
         private User _editedUser = new User();
         private readonly Action<User> _deleteUserAction;
-        private readonly Action<User> _updateUserAction;
+        private readonly Func<User, bool> _updateUserAction;
 
-        public UserDetails(User user, Action<User> deleteUserAction, Action<User> updateUserAction)
+        public UserDetails(User user, Action<User> deleteUserAction, Func<User, bool> updateUserAction)
         {
             InitializeComponent();
             DataContext = user;
@@ -70,16 +70,47 @@ namespace biblioteca.Views
         {
             ReadEditValues();
 
-            if (string.IsNullOrWhiteSpace(_editedUser.FirstName) || string.IsNullOrWhiteSpace(_editedUser.LastName))
+            if (string.IsNullOrWhiteSpace(FirstNameBox.Text))
             {
-                MessageBox.Show("First name and last name are required.");
+                MessageBox.Show("Imię jest wymagane.", "Błąd");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(LastNameBox.Text))
+            {
+                MessageBox.Show("Nazwisko jest wymagane.", "Błąd");
                 return;
             }
 
+            string email = EmailBox.Text?.Trim();
+            if (!string.IsNullOrWhiteSpace(email) && !System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Niepoprawny format adresu email.", "Błąd");
+                return;
+            }
+
+            string phone = PhoneBox.Text?.Trim();
+            if (!string.IsNullOrWhiteSpace(phone) && !System.Text.RegularExpressions.Regex.IsMatch(phone, @"^[0-9+\-\s]+$"))
+            {
+                MessageBox.Show("Niepoprawny format numeru telefonu.", "Błąd");
+                return;
+            }
+
+            string cardNumber = CardBox.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(cardNumber) || !System.Text.RegularExpressions.Regex.IsMatch(cardNumber, @"^[a-zA-Z0-9\-]+$"))
+            {
+                MessageBox.Show("Nr karty jest wymagany i może składać się tylko z liter, cyfr i myślników.", "Błąd");
+                return;
+            }
+
+
+            bool updated = _updateUserAction?.Invoke(_originalUser) ?? false;
+
+            if (!updated)
+            {
+                return;
+            }
             _originalUser.CopyFrom(_editedUser);
-
-            _updateUserAction?.Invoke(_originalUser);
-
+                
             EnterViewMode();
         }
 

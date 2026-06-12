@@ -95,6 +95,15 @@ namespace biblioteca.ViewModels
                 try
                 {
                     using var db = new Data.LibraryContext();
+
+                    bool alreadyExists = db.Users.Any(u => u.CardNumber == newUser.CardNumber);
+
+                    if (alreadyExists)
+                    {
+                        System.Windows.MessageBox.Show("Użytkownik o takim numerze karty już istnieje.", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                        return;
+                    }
+
                     db.Users.Add(newUser);
                     db.SaveChanges();
 
@@ -127,22 +136,32 @@ namespace biblioteca.ViewModels
             }
         }
 
-        public void UpdateUser(User updatedUser)
+        public bool UpdateUser(User updatedUser)
         {
             try
             {
                 using var db = new Data.LibraryContext();
 
+                bool alreadyExists = db.Users.Any(u => u.CardNumber == updatedUser.CardNumber);
+
+                if (alreadyExists)
+                {
+                    System.Windows.MessageBox.Show("Użytkownik o takim numerze karty już istnieje.", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                    return false;
+                }
+
                 var userInDb = db.Users.Find(updatedUser.Id);
-                if (userInDb == null) return;
+                if (userInDb == null) return false;
 
                 userInDb.CopyFrom(updatedUser);
 
                 db.SaveChanges();
+                return true;
             }
             catch (System.Exception ex)
             {
                 System.Windows.MessageBox.Show($"Wystąpił błąd podczas aktualizacji użytkownika: {ex.Message}", "Błąd", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return false;
             }
         }
 

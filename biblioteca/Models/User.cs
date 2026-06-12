@@ -1,8 +1,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace biblioteca.Models
 {
+    [Index(nameof(CardNumber), IsUnique = true)]
     public class User : INotifyPropertyChanged
     {
         private string _firstName = string.Empty;
