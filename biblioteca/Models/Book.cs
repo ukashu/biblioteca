@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace biblioteca.Models
 {
+    [Index(nameof(Signature), IsUnique = true)]
     public class Book : INotifyPropertyChanged
     {
         private string _title;
