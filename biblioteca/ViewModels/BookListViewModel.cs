@@ -94,18 +94,18 @@ namespace biblioteca.ViewModels
             {
                 var newBook = addBookWindow.CreatedBook;
 
-                using var db = new LibraryContext();
-
-                bool alreadyExists = db.Books.Any(b => b.Signature == newBook.Signature);
-
-                if (alreadyExists)
-                {
-                    MessageBox.Show("Książka o takiej sygnaturze już istnieje.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
                 try
                 {
+                    using var db = new LibraryContext();
+
+                    bool alreadyExists = db.Books.Any(b => b.Signature == newBook.Signature);
+
+                    if (alreadyExists)
+                    {
+                        MessageBox.Show("Książka o takiej sygnaturze już istnieje.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     db.Books.Add(newBook);
                     db.SaveChanges();
 
@@ -137,22 +137,32 @@ namespace biblioteca.ViewModels
             }
         }
 
-        public void UpdateBook(Book updatedBook)
+        public bool UpdateBook(Book updatedBook)
         {
             try
             {
                 using var db = new LibraryContext();
 
+                bool alreadyExists = db.Books.Any(b => b.Signature == updatedBook.Signature);
+
+                if (alreadyExists)
+                {
+                    MessageBox.Show("Książka o takiej sygnaturze już istnieje.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
                 var bookInDb = db.Books.Find(updatedBook.Id);
-                if (bookInDb == null) return;
+                if (bookInDb == null) return false;
 
                 bookInDb.CopyFrom(updatedBook);
 
                 db.SaveChanges();
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Wystąpił błąd podczas aktualizacji książki: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
     }

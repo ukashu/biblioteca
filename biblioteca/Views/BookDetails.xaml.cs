@@ -21,8 +21,8 @@ namespace biblioteca.Views
         private Book _originalBook;
         private Book _editedBook;
         private readonly Action<Book> _deleteBookAction;
-        private readonly Action<Book> _updateBookAction;
-        public BookDetails(Models.Book book, Action<Book> deleteBookAction, Action<Book> updateBookAction)
+        private readonly Func<Book, bool> _updateBookAction;
+        public BookDetails(Models.Book book, Action<Book> deleteBookAction, Func<Book, bool> updateBookAction)
         {
             InitializeComponent();
             DataContext = book;
@@ -84,9 +84,14 @@ namespace biblioteca.Views
             ReadEditValues();
             _editedBook.PublicationYear = year;
 
-            _originalBook.CopyFrom(_editedBook);
+            bool success = _updateBookAction?.Invoke(_originalBook) ?? false;
 
-            _updateBookAction?.Invoke(_originalBook);
+            if (!success)
+            {
+                return;
+            }
+
+            _originalBook.CopyFrom(_editedBook);
 
             EnterViewMode();
         }
