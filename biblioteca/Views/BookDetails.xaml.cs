@@ -75,14 +75,33 @@ namespace biblioteca.Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!int.TryParse(PublicationYearBox.Text, out int year))
+            if (string.IsNullOrWhiteSpace(TitleBox.Text))
             {
-                MessageBox.Show("Publication Year must be a number.");
+                MessageBox.Show("Tytuł jest wymagany.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(AuthorBox.Text))
+            {
+                MessageBox.Show("Autor jest wymagany.");
+                return;
+            }
+
+            if (!int.TryParse(PublicationYearBox.Text, out int publicationYear))
+            {
+                MessageBox.Show("Niewłaściwy rok publikacji. Podaj poprawną liczbę całkowitą.");
+                return;
+            }
+
+            string signature = SignatureBox.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(signature) || !System.Text.RegularExpressions.Regex.IsMatch(signature, @"^[a-zA-Z0-9\-]+$"))
+            {
+                MessageBox.Show("Sygnatura/ISBN jest wymagana i może składać się tylko z liter, cyfr i myślników.");
                 return;
             }
 
             ReadEditValues();
-            _editedBook.PublicationYear = year;
+            _editedBook.PublicationYear = publicationYear;
 
             bool success = _updateBookAction?.Invoke(_originalBook) ?? false;
 
