@@ -70,10 +70,10 @@
 - [x] wyświetlanie użytkownika który wypożyczył książkę w informacjach o książce
 - [ ] podświetlać na czerwono użytkowników którzy mają książki wypożyczone >30 dni przed dzisiaj
 - [x] refaktor okien details/edit
-- [ ] dodać czcionki
 - [x] BUGFIX: podwójne kliknięcie działa gdziekolwiek w UserList i BookList
 - [x] wyświetlanie okładek książek z URL
-- [ ] BUGFIX: ISBN powinno być unikatowe
+- [x] BUGFIX: ISBN powinno być unikatowe
+- [x] User Card powinien być unikatowy
 - [x] BUGFIX: Book Details visual bug
 - [x] wyświetl okładkę w Book Details
 - [ ] BUGFIX: Borrow Date nie wyświetla się
@@ -85,6 +85,7 @@
 - [x] dodać wyświetlanie odpowiednich komunikatów jeżeli input nie spełnia walidacji
 - [x] zidentyfikować miejsca gdzie jest potrzebny error handling i go dodać
 - [x] zmienić wygląd UI na bardziej "customowy" poprzez dodanie stylizowania elementów itp.
+- [x] dodać czcionki
 ### Wiktoria
 - [x] dodać możliwość zwracania kilku książek na raz (poprzez zaznaczenie kilku)
 	- wylistować zwrócone książki w Success Dialog
