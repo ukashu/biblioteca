@@ -47,28 +47,41 @@
 
         </StackPanel>
 
-        <ScrollViewer Grid.Row="2"
-                        VerticalScrollBarVisibility="Auto"
-                        HorizontalScrollBarVisibility="Disabled">
-            <!-- LISTA -->
-            <ListBox ItemsSource="{Binding Loans}"
-                 SelectedItem="{Binding SelectedLoan}">
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
+            <ListBox Grid.Row="0"
+                     MaxHeight="120"
+                     Margin="0,0,0,15"
+                     ItemsSource="{Binding BookSuggestions}"
+                     SelectedItem="{Binding SelectedSuggestion}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,10">
-
-                            <TextBlock Text="{Binding BookTitle}"
-                                   FontWeight="Bold"/>
-
-                            <TextBlock Text="{Binding UserName}"/>
-
+                        <StackPanel>
+                            <TextBlock Text="{Binding Book.Title}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Book.Signature}"/>
+                            <TextBlock Text="{Binding UserFullName}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-
             </ListBox>
-        </ScrollViewer>
+
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding ReturnedBooks}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Book.Title}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Book.Signature}"/>
+                            <TextBlock Text="{Binding UserFullName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
 
         <!-- BUTTON -->
         <Button Grid.Row="3"

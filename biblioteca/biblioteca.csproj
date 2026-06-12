@@ -13,5 +13,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="10.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.6" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="library.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>

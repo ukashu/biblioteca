@@ -1,70 +1,102 @@
 ﻿<UserControl x:Class="biblioteca.Views.ScanBooks"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Text="Skanuj książki"
+        <TextBlock Text="Scan Books"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
-
         <Grid Grid.Row="1"
-              Margin="0,0,0,20">
+              Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0">
-                <TextBox x:Name="InputBox"
-                         Height="30"
-                         Margin="0,0,10,0"
-                         VerticalContentAlignment="Center"
-                         Text="{Binding InputValue, UpdateSourceTrigger=PropertyChanged}" />
-
-                <TextBlock Text="ISBN lub Sygnatura"
-                           Margin="5,0,0,0"
-                           VerticalAlignment="Center"
-                           Foreground="Gray"
-                           IsHitTestVisible="False">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=InputBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-
+            <TextBox x:Name="InputBox"
+                     Height="30"
+                     Margin="0,0,10,0"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding InputValue, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding AddBookCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
             <Button Grid.Column="1"
-                    Content="Dodaj"
+                    Content="Add"
                     Width="100"
                     Height="30"
                     Command="{Binding AddBookCommand}" />
         </Grid>
-
-        <ScrollViewer Grid.Row="2"
-                      VerticalScrollBarVisibility="Auto">
-            <ListBox ItemsSource="{Binding ReturnedBooks}" />
-        </ScrollViewer>
-
-        <Button Grid.Row="3"
-                Content="Zwróć"
+        <GroupBox Grid.Row="2"
+                  Header="Suggestions"
+                  Margin="0,0,0,15"
+                  Visibility="{Binding HasSuggestions, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ListBox ItemsSource="{Binding BookSuggestions}"
+                     SelectedItem="{Binding SelectedSuggestion}"
+                     MaxHeight="140">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,8">
+                            <TextBlock Text="{Binding BookTitle}"
+                                       FontWeight="Bold"/>
+                            <TextBlock>
+                                <Run Text="ISBN: "/>
+                                <Run Text="{Binding BookSignature}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Borrower: "/>
+                                <Run Text="{Binding UserFullName}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Borrowed: "/>
+                                <Run Text="{Binding BorrowDate, StringFormat={}{0:g}}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Grid.Row="3"
+                  Header="Books to Return">
+            <ListBox ItemsSource="{Binding LoansToReturn}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,10">
+                            <TextBlock Text="{Binding BookTitle}"
+                                       FontWeight="Bold"/>
+                            <TextBlock>
+                                <Run Text="ISBN: "/>
+                                <Run Text="{Binding BookSignature}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Borrower: "/>
+                                <Run Text="{Binding UserFullName}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Borrowed: "/>
+                                <Run Text="{Binding BorrowDate, StringFormat={}{0:g}}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <Button Grid.Row="4"
+                Content="Return"
                 Width="120"
                 Height="35"
                 HorizontalAlignment="Right"
